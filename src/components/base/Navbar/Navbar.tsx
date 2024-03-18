@@ -3,7 +3,7 @@ import { navItems } from './navItems';
 
 export const Navbar = () => {
   return (
-    <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6">
+    <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6 border-b border-black">
       <Link href="/" className="font-black text-2xl font-sans md:text-5xl">
         enkelhet
       </Link>
