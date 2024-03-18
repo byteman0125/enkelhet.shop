@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <div className="">
       <Hero />
-      <ProductGrid />
+      <ProductGrid products={products} />
     </div>
   );
 }

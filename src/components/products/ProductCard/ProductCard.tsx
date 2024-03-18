@@ -1,20 +1,22 @@
-import Image from 'next/image';
+import { IProduct } from '@/interfaces';
+import Link from 'next/link';
+import { ProductImage } from './ProductImage';
 
-export const ProductCard = () => {
+interface Props {
+  product: IProduct;
+}
+
+export const ProductCard = ({ product }: Props) => {
   return (
-    <div className="w-full h-fit product-card">
-      <figure className="relative h-full w-full aspect-square">
-        <Image
-          src={`/example.jpg`}
-          alt="item name"
-          fill
-          className="object-cover"
-        />
-      </figure>
+    <Link
+      href={`/products/${product.slug}`}
+      className="w-full h-fit product-card"
+    >
+      <ProductImage images={product.images} />
       <div className="p-2 text-sm">
-        <p>LOUNGE CHAIR</p>
+        <p className="uppercase">{product.title}</p>
         <div className="flex items-center justify-between">
-          <p>1800€</p>
+          <p>{product.price}€</p>
           <div className="flex items-center gap-2">
             <div className="h-4 w-4 bg-red-600 rounded-full"></div>
             <div className="h-4 w-4 bg-green-600 rounded-full"></div>
@@ -25,6 +27,6 @@ export const ProductCard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
