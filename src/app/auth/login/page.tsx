@@ -1,4 +1,4 @@
-export default function Login() {
+export default function LoginPage() {
   return (
     <div className="">
       <h1>LOGIN</h1>
