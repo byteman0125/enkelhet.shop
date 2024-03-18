@@ -1,4 +1,6 @@
-import { Fira_Mono } from 'next/font/google';
+import { Fira_Mono, Inter } from 'next/font/google';
+
+export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const fira_mono = Fira_Mono({
   subsets: ['latin'],

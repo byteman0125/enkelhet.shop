@@ -1,4 +1,4 @@
-import { fira_mono } from '@/config/fonts';
+import { fira_mono, inter } from '@/config/fonts';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -14,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fira_mono.className}>{children}</body>
+      <body className={`${fira_mono.variable} ${inter.variable} font-mono`}>
+        {children}
+      </body>
     </html>
   );
 }
