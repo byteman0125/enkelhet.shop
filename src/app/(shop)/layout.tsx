@@ -1,4 +1,4 @@
-import { Navbar } from '@/components';
+import { Navbar, Sidebar } from '@/components';
 
 export default function ShopLayout({
   children,
@@ -8,6 +8,7 @@ export default function ShopLayout({
   return (
     <main className="w-full min-h-screen">
       <Navbar />
+      <Sidebar />
       {children}
     </main>
   );

@@ -1,7 +1,10 @@
+'use client';
+import { useUiStore } from '@/store';
 import Link from 'next/link';
 import { navItems } from './navItems';
 
 export const Navbar = () => {
+  const { openSideMenu } = useUiStore();
   return (
     <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6 border-b border-black">
       <Link href="/" className="font-black text-2xl font-sans md:text-5xl">
@@ -27,7 +30,7 @@ export const Navbar = () => {
           <button>CART (0)</button>
         </li>
         <li>
-          <button>MENU</button>
+          <button onClick={openSideMenu}>MENU</button>
         </li>
       </ul>
     </nav>
