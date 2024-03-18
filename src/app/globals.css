@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --border: 1px solid black;
+}
+
+.product-card {
+  border-top: var(--border);
+  border-left: var(--border);
+}
