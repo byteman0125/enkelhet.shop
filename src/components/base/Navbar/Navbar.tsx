@@ -1,10 +1,12 @@
 'use client';
 import { useUiStore } from '@/store';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { navItems } from './navItems';
 
 export const Navbar = () => {
   const { openSideMenu } = useUiStore();
+  const { id: paramId } = useParams();
   return (
     <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6 border-b border-black">
       <Link href="/" className="font-black text-2xl font-sans md:text-5xl">
@@ -15,7 +17,7 @@ export const Navbar = () => {
           <li key={id}>
             <Link
               href={`/series/${label}`}
-              className="hover:underline underline-offset-2"
+              className={`hover:underline underline-offset-2 ${paramId === label ? 'underline' : ''}`}
             >
               {label}
             </Link>
