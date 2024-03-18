@@ -16,6 +16,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'alabaster',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -31,6 +32,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'alabaster',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -46,6 +48,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'capsule',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -61,6 +64,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'lounge',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -76,6 +80,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'alabaster',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -91,6 +96,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'alabaster',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -106,6 +112,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'capsule',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -121,6 +128,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'lounge',
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -136,6 +144,7 @@ export const initialData: ISeedData = {
       title: 'ALUMINUM OTTOMAN',
       inStock: 10,
       tags: ['tag'],
+      series: 'lounge',
     },
   ],
 };
