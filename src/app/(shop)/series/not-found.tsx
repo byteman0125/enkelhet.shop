@@ -4,7 +4,7 @@ export default function NotFoundPage() {
   return (
     <div className="flex flex-col items-center justify-center h-[calc(100vh-80px)]">
       <h1 className="font-black text-[10vw]">(O.O)</h1>
-      <p className="text-base mb-8">Oh, it looks like you're stuck</p>
+      <p className="text-base mb-8">Oh, it looks like you`&apos;`re stuck</p>
       <Link
         href="/"
         className="bg-gray-200 px-4 py-2 rounded-md flex items-center gap-4"
