@@ -29,7 +29,7 @@ export const Navbar = () => {
           <button>SEARCH</button>
         </li>
         <li>
-          <button>CART (0)</button>
+          <Link href={`/cart`}>CART (0)</Link>
         </li>
         <li>
           <button onClick={openSideMenu}>MENU</button>
