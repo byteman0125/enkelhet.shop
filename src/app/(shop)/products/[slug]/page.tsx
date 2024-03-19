@@ -1,4 +1,6 @@
 'use client';
+
+import { ProductExperience, ViewInRoom } from '@/components';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -35,7 +37,7 @@ export default function ProductPage({ params }: Props) {
         SHOP / lounge / {slug}
       </div>
       <div className="grid grid-cols-12 h-fit gap-4">
-        <div className="col-span-8 border-r border-black gallery">
+        <div className="col-span-8 border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-81px-53px)] bg-black">
             <figure className="relative h-full w-full" ref={imageRef}>
               <Image
@@ -43,10 +45,14 @@ export default function ProductPage({ params }: Props) {
                 className="object-cover"
                 fill
                 alt=""
+                priority
               />
             </figure>
           </div>
-          <div className="w-full h-[calc(100vh-81px-53px)] bg-red-200"></div>
+          <div className="w-full h-[calc(100vh-81px-53px)] ">
+            <ProductExperience />
+          </div>
+          <ViewInRoom />
         </div>
 
         <div className="col-span-4 h-fit right p-4">Datos del producto</div>
