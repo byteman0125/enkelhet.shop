@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 export const ProductExperience = () => {
   return (
     <Canvas
-      className="w-full h-full "
+      className="w-full h-full bg-white"
       camera={{ fov: 30, zoom: 0.4, position: [0, 1, 6] }}
     >
       <ProductModel />
@@ -18,7 +18,7 @@ export const ProductExperience = () => {
 const ProductModel = () => {
   const { nodes, materials }: any = useGLTF('/chair.glb');
   return (
-    <group dispose={null} scale={0.05} position={[0, 0.5, 0]}>
+    <group dispose={null} scale={0.05} position={[0, 0, 0]}>
       <mesh
         castShadow
         receiveShadow

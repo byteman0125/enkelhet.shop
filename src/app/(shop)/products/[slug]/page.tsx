@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductExperience, ViewInRoom } from '@/components';
+import { ProductExperience, QuantitySelector, ViewInRoom } from '@/components';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -20,25 +20,28 @@ export default function ProductPage({ params }: Props) {
   const imageRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    ScrollTrigger.create({
-      trigger: '.gallery',
-      start: 'top 133px',
-      end: 'bottom bottom',
-      pin: '.right',
-      onUpdate: (self) => {
-        const opacity = 1 - self.progress;
-        gsap.to(imageRef.current, { opacity: opacity });
+    gsap.to('.gallery', {
+      scrollTrigger: {
+        trigger: '.gallery',
+        start: 'top 133px',
+        end: 'bottom bottom',
+        pin: '.right',
+        scrub: true,
+        onUpdate: (self) => {
+          const opacity = 1 - self.progress;
+          gsap.to(imageRef.current, { opacity: opacity });
+        },
       },
     });
   });
   return (
     <>
-      <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[81px] bg-white z-10">
+      <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10">
         SHOP / lounge / {slug}
       </div>
-      <div className="grid grid-cols-12 h-fit">
-        <div className="col-span-8 border-r border-black gallery relative">
-          <div className="w-full h-[calc(100vh-81px-53px)] bg-black">
+      <div className="grid grid-cols-12 h-fit border-b-4 border-black md:border-none">
+        <div className="col-span-12 xl:col-span-8 border-r border-black gallery relative">
+          <div className="w-full h-[calc(100vh-81px-53px)] bg-black sticky top-[81px]">
             <figure className="relative h-full w-full" ref={imageRef}>
               <Image
                 src={`/product.webp`}
@@ -49,19 +52,19 @@ export default function ProductPage({ params }: Props) {
               />
             </figure>
           </div>
-          <div className="w-full h-[calc(100vh-81px-53px)] ">
+          <div className="w-full h-[calc(100vh-81px-53px)] scrollable">
             <ProductExperience />
           </div>
           <ViewInRoom />
         </div>
 
-        <div className="col-span-4 h-[calc(100vh-81px-53px)] right flex flex-col justify-between">
+        <div className="col-span-12 xl:col-span-4 h-[calc(100vh-81px-53px)] right flex flex-col justify-between">
           <div className="p-4 flex flex-col gap-14">
             <div className="flex flex-col font-bold">
               <h1>ROCKER</h1>
               <span>1500€</span>
             </div>
-            <div className="grid grid-cols-6">
+            <div className="flex flex-col md:grid grid-cols-6">
               <p className="col-span-2">DESCRIPTION</p>
               <p className="text-[12px] font-bold col-span-4">
                 Formica is OWL’s first series, marking the beginning of the
@@ -73,19 +76,21 @@ export default function ProductPage({ params }: Props) {
                 colourful design.
               </p>
             </div>
-            <div className="grid grid-cols-6">
+            <div className="flex flex-col md:grid md:grid-cols-6">
               <p className="col-span-2">MEASUREMENTS</p>
-              <div className="text-[12px] font-bold col-span-2">
-                <p>Total Height</p>
-                <p>Seating Height</p>
-                <p>Width</p>
-                <p>Depth</p>
-              </div>
-              <div className="text-[12px] font-bold col-span-2">
-                <p>85 cm</p>
-                <p>45 cm</p>
-                <p>60 cm</p>
-                <p>80 cm</p>
+              <div className="grid grid-cols-6 md:col-span-4">
+                <div className="text-[12px] font-bold col-span-4">
+                  <p>Total Height</p>
+                  <p>Seating Height</p>
+                  <p>Width</p>
+                  <p>Depth</p>
+                </div>
+                <div className="text-[12px] font-bold col-span-2">
+                  <p>85 cm</p>
+                  <p>45 cm</p>
+                  <p>60 cm</p>
+                  <p>80 cm</p>
+                </div>
               </div>
             </div>
             <div className="grid grid-cols-6">
@@ -103,15 +108,8 @@ export default function ProductPage({ params }: Props) {
             </div>
           </div>
           <div className="border-t border-black grid grid-cols-5">
-            <div className="flex items-center col-span-2 w-full justify-between px-4 py-4">
-              <p>QUANTITY</p>
-              <div className="flex items-center gap-5">
-                <button>-</button>
-                <p>1</p>
-                <button>+</button>
-              </div>
-            </div>
-            <div className="flex items-center justify-center col-span-3 w-full bg-[#0038a3] px-4 py-4 text-white">
+            <QuantitySelector quantity={2} />
+            <div className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-[#0038a3] px-4 py-4 text-white text-sm md:text-base">
               <p>ADD TO CART</p>
             </div>
           </div>
