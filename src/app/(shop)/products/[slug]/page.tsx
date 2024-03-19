@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductExperience, ViewInRoom } from '@/components';
+import { ProductExperience, QuantitySelector, ViewInRoom } from '@/components';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -103,14 +103,7 @@ export default function ProductPage({ params }: Props) {
             </div>
           </div>
           <div className="border-t border-black grid grid-cols-5">
-            <div className="flex items-center col-span-2 w-full justify-between px-4 py-4">
-              <p>QUANTITY</p>
-              <div className="flex items-center gap-5">
-                <button>-</button>
-                <p>1</p>
-                <button>+</button>
-              </div>
-            </div>
+            <QuantitySelector quantity={2} />
             <div className="flex items-center justify-center col-span-3 w-full bg-[#0038a3] px-4 py-4 text-white">
               <p>ADD TO CART</p>
             </div>
