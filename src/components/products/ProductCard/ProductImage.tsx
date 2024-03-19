@@ -17,6 +17,7 @@ export const ProductImage = ({ images }: Props) => {
         alt="product"
         className="object-cover"
         fill
+        priority
       />
     </figure>
   );
