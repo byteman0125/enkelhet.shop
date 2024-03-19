@@ -8,7 +8,7 @@ export const Navbar = () => {
   const { openSideMenu } = useUiStore();
   const { id: paramId } = useParams();
   return (
-    <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6 border-b border-black">
+    <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6 border-b border-black sticky top-0 bg-white z-10">
       <Link href="/" className="font-black text-2xl font-sans md:text-5xl">
         enkelhet
       </Link>
