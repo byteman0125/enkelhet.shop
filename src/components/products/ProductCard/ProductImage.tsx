@@ -14,7 +14,7 @@ export const ProductImage = ({ images }: Props) => {
         onMouseEnter={() => setDisplayImage(images[1])}
         onMouseLeave={() => setDisplayImage(images[0])}
         src={`${displayImage}`}
-        alt="item name"
+        alt="product"
         className="object-cover"
         fill
       />

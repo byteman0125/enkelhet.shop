@@ -8,8 +8,10 @@ export interface IProduct {
   measurements: MeasurementType;
   finish: FinishType[];
   tags: string[];
+  series: SeriesType;
 }
 
+type SeriesType = 'lounge' | 'alabaster' | 'capsule';
 type FinishType = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
 type MeasurementType = {
   totalHeight: string;

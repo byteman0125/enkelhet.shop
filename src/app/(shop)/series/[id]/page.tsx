@@ -1,4 +1,5 @@
-import { notFound } from 'next/navigation';
+import { Hero, ProductGrid } from '@/components';
+import { initialData } from '@/seed/seed';
 
 interface Props {
   params: {
@@ -6,15 +7,21 @@ interface Props {
   };
 }
 
+const products = initialData.products;
+
 export default function SeriesPage({ params }: Props) {
   const { id } = params;
-
-  if (id === 'abc') {
-    notFound();
-  }
+  const seriesProducts = products.filter((product) => product.series === id);
+  // if (id === 'abc') {
+  //   notFound();
+  // }
   return (
     <div className="">
-      <h1>SERIES page {id}</h1>
+      <Hero
+        title={`${id}`}
+        text={`useParams is a Client Component hook that lets you read a route's dynamic params filled in by the current URL. ${id}`}
+      />
+      <ProductGrid products={seriesProducts} />
     </div>
   );
 }
