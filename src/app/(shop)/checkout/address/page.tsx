@@ -55,9 +55,9 @@ export default function AddressPage() {
             <div className="w-full flex items-center mt-8">
               <Link
                 href={`/checkout`}
-                className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base max-w-56"
+                className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base "
               >
-                Payments
+                Continue to summary
               </Link>
             </div>
           </div>
@@ -68,6 +68,7 @@ export default function AddressPage() {
             alt="address image"
             fill
             className="object-cover"
+            priority
           />
         </div>
       </div>
