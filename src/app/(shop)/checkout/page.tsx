@@ -17,7 +17,7 @@ export default function CheckoutPage() {
         className={`w-full grid grid-cols-1 xl:grid-cols-2 ${productsInCart.length <= 3 ? 'border-b border-black' : ''} `}
       >
         <div className="w-full h-full border-t border-r border-black">
-          {productsInCart.map((product, i) => (
+          {productsInCart.map((product) => (
             <CartItem product={product} key={product.slug} editable={false} />
           ))}
         </div>
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
 
           <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 pl-8 pr-8 gap-4">
             <p className="text-sm max-w-[500px]">
-              By clicking "place order," you accept and agree our{' '}
+              By clicking &quot;place order&quot;, you accept and agree our{' '}
               <span className="underline">terms and conditions</span> and{' '}
               <span className="underline">privacy policy</span>
             </p>
