@@ -21,7 +21,7 @@ export const CartItem = ({ product }: Props) => {
         <div className="flex items-center justify-between p-4">
           <p>
             <span className="font-bold">{product.title}</span> /{' '}
-            {product.series} / {product.finish[0]}
+            {product.finish[0]}
           </p>
 
           <button className="hover:underline underline-offset-2">
