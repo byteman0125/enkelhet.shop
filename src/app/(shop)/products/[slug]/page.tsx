@@ -109,6 +109,7 @@ export default function ProductPage({ params }: Props) {
           </div>
           <div className="border-t border-black grid grid-cols-5">
             <QuantitySelector quantity={2} />
+
             <div className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-[#0038a3] px-4 py-4 text-white text-sm md:text-base">
               <p>ADD TO CART</p>
             </div>
