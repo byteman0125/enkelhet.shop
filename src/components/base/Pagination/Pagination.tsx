@@ -1,6 +1,7 @@
 'use client';
+import { generatePaginationNumbers } from '@/utils';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { redirect, usePathname, useSearchParams } from 'next/navigation';
 
 interface Props {
   totalPages: number;
@@ -9,7 +10,14 @@ interface Props {
 export const Pagination = ({ totalPages }: Props) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) ?? 1;
+
+  const pageString = searchParams.get('page') ?? 1;
+
+  const currentPage = isNaN(+pageString) ? 1 : +pageString;
+  if (currentPage < 1 || isNaN(+pageString)) {
+    redirect(pathname);
+  }
+  const allPages = generatePaginationNumbers(currentPage, totalPages);
 
   const createPageUrl = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -38,28 +46,17 @@ export const Pagination = ({ totalPages }: Props) => {
         >
           prev
         </Link>
-        <ul className="h-full flex items-center">
-          <li
-            className={`hover:bg-gray-200 h-full py-2 px-4 ${true ? 'bg-black text-white' : ''}`}
-          >
-            1
-          </li>
-          <li
-            className={`hover:bg-gray-200 h-full py-2 px-4 ${true ? 'bg-black text-white' : ''}`}
-          >
-            2
-          </li>
-          <li
-            className={`hover:bg-gray-200 h-full py-2 px-4 ${true ? 'bg-black text-white' : ''}`}
-          >
-            3
-          </li>
-          <li
-            className={`hover:bg-gray-200 h-full py-2 px-4 ${true ? 'bg-black text-white' : ''}`}
-          >
-            ...
-          </li>
-        </ul>
+        <div className="h-full flex items-center">
+          {allPages.map((page, i) => (
+            <Link
+              href={createPageUrl(page)}
+              key={page + '-' + i}
+              className={`hover:bg-gray-200 h-full py-2 px-4 ${currentPage === page ? 'bg-black text-white' : ''}`}
+            >
+              {page}
+            </Link>
+          ))}
+        </div>
         <Link
           href={createPageUrl(currentPage + 1)}
           className="border-l border-black p-2 hover:bg-gray-200"
