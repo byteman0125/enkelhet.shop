@@ -6,11 +6,11 @@ interface SeedProduct {
   slug: string;
   tags: string[];
   title: string;
-  type: ValidTypes;
+  finish: ValidFinish;
   series: 'lounge' | 'alabaster' | 'capsule';
 }
 
-type ValidTypes = 'oak' | 'ash' | 'wenge' | 'walnut';
+type ValidFinish = 'oak' | 'ash' | 'wenge' | 'walnut';
 
 interface SeedData {
   categories: string[];
@@ -27,7 +27,7 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirt',
-      type: 'walnut',
+      finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'lounge',
@@ -39,7 +39,7 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jacket',
-      type: 'wenge',
+      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'alabaster',
@@ -52,7 +52,7 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jacket',
-      type: 'ash',
+      finish: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',

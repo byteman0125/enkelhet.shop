@@ -4,17 +4,17 @@ import { initialData } from './seed';
 async function main() {
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
-  await prisma.category.deleteMany();
+  await prisma.finish.deleteMany();
 
   const { categories, products } = initialData;
 
   const categoriesData = categories.map((name) => ({ name }));
 
-  await prisma.category.createMany({
+  await prisma.finish.createMany({
     data: categoriesData,
   });
 
-  const categoriesDB = await prisma.category.findMany();
+  const categoriesDB = await prisma.finish.findMany();
 
   const categoriesMap = categoriesDB.reduce(
     (map, category) => {
@@ -25,12 +25,12 @@ async function main() {
   );
 
   products.forEach(async (product) => {
-    const { type, images, ...rest } = product;
+    const { finish, images, ...rest } = product;
 
     const dbProduct = await prisma.product.create({
       data: {
         ...rest,
-        categoryId: categoriesMap[type],
+        finishId: categoriesMap[finish],
       },
     });
 
