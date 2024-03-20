@@ -7,9 +7,9 @@ export interface IProduct {
   slug: string;
   tags: string[];
   title: string;
-  type: Type;
+  finish: Finish;
   series: Series;
 }
 
 export type Series = 'lounge' | 'alabaster' | 'capsule';
-export type Type = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
+export type Finish = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';

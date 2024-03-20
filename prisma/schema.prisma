@@ -7,7 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Series {
+
+
+enum Gender {
+  men
+  women
+  kid
+  unisex
+}
+
+model Category {
   id      String    @id @default(uuid())
   name    String    @unique
   Product Product[]
@@ -21,13 +30,16 @@ model Product {
   price       Float    @default(0)
   slug        String   @unique
   tags        String[] @default([])
+  gender      Gender
 
-  series    Series       @relation(fields: [seriesId], references: [id])
-  seriesId    String
+  // Relaciones
+  
+  category     Category       @relation(fields: [categoryId], references: [id])
+  categoryId   String
 
   ProductImage ProductImage[]
 
-  @@index([seriesId])
+  @@index([gender])
 }
 
 model ProductImage {
