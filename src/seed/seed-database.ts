@@ -15,6 +15,16 @@ async function main() {
   await prisma.series.createMany({
     data: seriesData,
   });
+
+  const seriesDB = await prisma.series.findMany();
+  const seriesMap = seriesDB.reduce(
+    (map, serie) => {
+      map[serie.name.toLowerCase()] = serie.id;
+      return map;
+    },
+    {} as Record<string, string>
+  );
+  console.log(seriesMap);
 }
 
 (() => {
