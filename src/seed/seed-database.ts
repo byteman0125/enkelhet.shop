@@ -8,15 +8,14 @@ async function main() {
     prisma.series.deleteMany(),
   ]);
   const { series, products } = initialData;
-  const seriesData = series.map((serie) => ({
-    name: serie,
-  }));
+  const seriesData = series.map((name) => ({ name }));
 
   await prisma.series.createMany({
     data: seriesData,
   });
 
   const seriesDB = await prisma.series.findMany();
+
   const seriesMap = seriesDB.reduce(
     (map, serie) => {
       map[serie.name.toLowerCase()] = serie.id;
@@ -24,7 +23,6 @@ async function main() {
     },
     {} as Record<string, string>
   );
-  console.log(seriesMap);
 }
 
 (() => {
