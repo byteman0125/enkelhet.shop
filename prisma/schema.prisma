@@ -36,9 +36,16 @@ model Product {
     tags String[] @default([])
     title String
     measurement String
+    images ProductImage[]
 
     series   Series @relation(fields: [serieId], references: [id])
     serieId  String
-
     @@index([serieId])
+}
+
+model ProductImage {
+  id Int @id @default(autoincrement())
+  url String
+  product  Product @relation(fields: [productId], references: [id])
+  productId String
 }
