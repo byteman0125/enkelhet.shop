@@ -1,9 +1,8 @@
 import { CartItem, EmptyCart } from '@/components';
-import { IProduct } from '@/interfaces';
-import { initialData } from '@/seed/seed';
+import { SeedProduct, initialData } from '@/seed/seed';
 import Link from 'next/link';
 
-const productsInCart: IProduct[] = [
+const productsInCart: SeedProduct[] = [
   initialData.products[0],
   initialData.products[1],
   initialData.products[2],

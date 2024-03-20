@@ -1,9 +1,9 @@
 import { QuantitySelector } from '@/components';
-import { IProduct } from '@/interfaces';
+import { SeedProduct } from '@/seed/seed';
 import Image from 'next/image';
 
 interface Props {
-  product: IProduct;
+  product: SeedProduct;
   editable?: boolean;
 }
 
