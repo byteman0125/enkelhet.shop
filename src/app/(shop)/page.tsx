@@ -1,5 +1,5 @@
 import { getPaginatedProductsWithImages } from '@/actions';
-import { Hero, ProductGrid } from '@/components';
+import { Hero, Pagination, ProductGrid } from '@/components';
 import { redirect } from 'next/navigation';
 
 interface Props {
@@ -25,6 +25,7 @@ export default async function HomePage({ searchParams }: Props) {
         times can be from 8 - 10 weeks. Download full catalog here."
       />
       <ProductGrid products={products} />
+      <Pagination totalPages={totalPages} />
     </div>
   );
 }
