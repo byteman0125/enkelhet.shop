@@ -10,14 +10,14 @@ export interface IProduct {
   tags: string[];
   series: SeriesType;
 }
-
-type SeriesType = 'lounge' | 'alabaster' | 'capsule';
-type FinishType = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
 type MeasurementType = {
   totalHeight: string;
   depth: string;
   width: string;
 };
+
+type SeriesType = 'lounge' | 'alabaster' | 'capsule';
+type FinishType = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
 
 export interface ISeedData {
   products: IProduct[];
