@@ -1,9 +1,9 @@
 import { QuantitySelector } from '@/components';
-import { IProduct } from '@/interfaces';
+import { SeedProduct } from '@/seed/seed';
 import Image from 'next/image';
 
 interface Props {
-  product: IProduct;
+  product: SeedProduct;
   editable?: boolean;
 }
 
@@ -21,7 +21,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
       <div className="w-full h-full flex flex-col justify-between">
         <div className="flex items-center justify-between p-4">
           <p>
-            <span>{product.title}</span> / {product.finish[0]}
+            <span>{product.title}</span> / finish
           </p>
 
           {editable && (

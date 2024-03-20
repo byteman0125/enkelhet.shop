@@ -1,24 +1,15 @@
 export interface IProduct {
-  images: string[];
-  title: string;
-  price: number;
+  //todo: id: string;
   description: string;
-  slug: string;
+  images: string[];
   inStock: number;
-  measurements: MeasurementType;
-  finish: FinishType[];
+  price: number;
+  slug: string;
   tags: string[];
-  series: SeriesType;
+  title: string;
+  finish: Finish;
+  series: Series;
 }
-type MeasurementType = {
-  totalHeight: string;
-  depth: string;
-  width: string;
-};
 
-type SeriesType = 'lounge' | 'alabaster' | 'capsule';
-type FinishType = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
-
-export interface ISeedData {
-  products: IProduct[];
-}
+export type Series = 'lounge' | 'alabaster' | 'capsule';
+export type Finish = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
