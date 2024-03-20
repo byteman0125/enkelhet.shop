@@ -1,8 +1,17 @@
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Hero, ProductGrid } from '@/components';
 
-export default async function HomePage() {
-  const { products } = await getPaginatedProductsWithImages();
+interface Props {
+  searchParams: {
+    page?: string;
+  };
+}
+
+export default async function HomePage({ searchParams }: Props) {
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const { products } = await getPaginatedProductsWithImages({
+    page,
+  });
   return (
     <div className="">
       <Hero
