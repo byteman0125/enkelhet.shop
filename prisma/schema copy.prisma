@@ -23,7 +23,7 @@ enum FinishType {
 model Series {
   id String @id @default(uuid())
   name String @unique
-  products Product[]
+  // ???
 }
 
 model Product {
@@ -32,13 +32,9 @@ model Product {
     inStock Int
     price Float @default(0)
     finish FinishType
+    series SeriesType
     slug String @unique
     tags String[] @default([])
     title String
     measurement String
-
-    series   Series @relation(fields: [serieId], references: [id])
-    serieId  String
-
-    @@index([serieId])
 }
