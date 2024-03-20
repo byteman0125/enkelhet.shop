@@ -10,7 +10,7 @@ interface SeedProduct {
   gender: 'lounge' | 'alabaster' | 'capsule';
 }
 
-type ValidTypes = 'shirts' | 'pants' | 'hoodies' | 'hats';
+type ValidTypes = 'oak' | 'ash' | 'wenge' | 'walnut';
 
 interface SeedData {
   categories: string[];
@@ -18,7 +18,7 @@ interface SeedData {
 }
 
 export const initialData: SeedData = {
-  categories: ['Shirts', 'Pants', 'Hoodies', 'Hats'],
+  categories: ['Walnut', 'Ash', 'Wenge', 'Oak'],
   products: [
     {
       description:
@@ -27,8 +27,8 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirt',
-      type: 'shirts',
-      tags: ['sweatshirt'],
+      type: 'walnut',
+      tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       gender: 'lounge',
     },
@@ -39,8 +39,8 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jacket',
-      type: 'shirts',
-      tags: ['jacket'],
+      type: 'wenge',
+      tags: [''],
       title: "Men's Quilted Shirt Jacket",
       gender: 'alabaster',
     },
@@ -52,8 +52,8 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jacket',
-      type: 'shirts',
-      tags: ['shirt'],
+      type: 'ash',
+      tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       gender: 'capsule',
     },
