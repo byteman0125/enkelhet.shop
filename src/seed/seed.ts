@@ -7,7 +7,7 @@ interface SeedProduct {
   tags: string[];
   title: string;
   type: ValidTypes;
-  gender: 'lounge' | 'alabaster' | 'capsule';
+  series: 'lounge' | 'alabaster' | 'capsule';
 }
 
 type ValidTypes = 'oak' | 'ash' | 'wenge' | 'walnut';
@@ -30,7 +30,7 @@ export const initialData: SeedData = {
       type: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
-      gender: 'lounge',
+      series: 'lounge',
     },
     {
       description:
@@ -42,7 +42,7 @@ export const initialData: SeedData = {
       type: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
-      gender: 'alabaster',
+      series: 'alabaster',
     },
 
     {
@@ -55,7 +55,7 @@ export const initialData: SeedData = {
       type: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
-      gender: 'capsule',
+      series: 'capsule',
     },
   ],
 };

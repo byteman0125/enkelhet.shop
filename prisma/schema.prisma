@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Gender {
+enum Series {
   lounge
   alabaster
   capsule
@@ -27,7 +27,7 @@ model Product {
   price       Float    @default(0)
   slug        String   @unique
   tags        String[] @default([])
-  gender      Gender
+  series      Series
 
   // Relaciones
   
@@ -36,7 +36,7 @@ model Product {
 
   ProductImage ProductImage[]
 
-  @@index([gender])
+  @@index([series])
 }
 
 model ProductImage {
