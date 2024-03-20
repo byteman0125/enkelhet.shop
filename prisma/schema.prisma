@@ -13,7 +13,7 @@ enum Series {
   capsule
 }
 
-model Category {
+model Finish {
   id      String    @id @default(uuid())
   name    String    @unique
   Product Product[]
@@ -31,8 +31,8 @@ model Product {
 
   // Relaciones
   
-  category     Category       @relation(fields: [categoryId], references: [id])
-  categoryId   String
+  finish     Finish       @relation(fields: [finishId], references: [id])
+  finishId   String
 
   ProductImage ProductImage[]
 
