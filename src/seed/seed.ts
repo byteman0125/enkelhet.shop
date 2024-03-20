@@ -7,7 +7,7 @@ interface SeedProduct {
   tags: string[];
   title: string;
   type: ValidTypes;
-  gender: 'men' | 'women' | 'kid' | 'unisex';
+  gender: 'lounge' | 'alabaster' | 'capsule';
 }
 
 type ValidTypes = 'shirts' | 'pants' | 'hoodies' | 'hats';
@@ -26,12 +26,11 @@ export const initialData: SeedData = {
       images: ['1740176-00-A_0_2000.jpg', '1740176-00-A_1.jpg'],
       inStock: 7,
       price: 75,
-
       slug: 'mens_chill_crew_neck_sweatshirt',
       type: 'shirts',
       tags: ['sweatshirt'],
       title: 'Men’s Chill Crew Neck Sweatshirt',
-      gender: 'men',
+      gender: 'lounge',
     },
     {
       description:
@@ -43,7 +42,7 @@ export const initialData: SeedData = {
       type: 'shirts',
       tags: ['jacket'],
       title: "Men's Quilted Shirt Jacket",
-      gender: 'men',
+      gender: 'alabaster',
     },
 
     {
@@ -52,12 +51,11 @@ export const initialData: SeedData = {
       images: ['1740250-00-A_0_2000.jpg', '1740250-00-A_1.jpg'],
       inStock: 10,
       price: 130,
-
       slug: 'men_raven_lightweight_zip_up_bomber_jacket',
       type: 'shirts',
       tags: ['shirt'],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
-      gender: 'men',
+      gender: 'capsule',
     },
   ],
 };

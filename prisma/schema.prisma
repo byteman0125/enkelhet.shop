@@ -10,10 +10,9 @@ datasource db {
 
 
 enum Gender {
-  men
-  women
-  kid
-  unisex
+  lounge
+  alabaster
+  capsule
 }
 
 model Category {
