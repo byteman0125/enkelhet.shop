@@ -8,6 +8,7 @@ const productsInCart: IProduct[] = [
   initialData.products[1],
   initialData.products[2],
 ];
+
 export default function CartPage() {
   return (
     <>
