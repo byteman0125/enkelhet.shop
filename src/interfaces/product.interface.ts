@@ -1,5 +1,5 @@
 export interface IProduct {
-  //todo: id: string;
+  id: string;
   description: string;
   images: string[];
   inStock: number;
@@ -7,7 +7,7 @@ export interface IProduct {
   slug: string;
   tags: string[];
   title: string;
-  finish: Finish;
+  //todo:finish: Finish;
   series: Series;
 }
 

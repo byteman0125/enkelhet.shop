@@ -1,9 +1,9 @@
-import { SeedProduct } from '@/seed/seed';
+import { IProduct } from '@/interfaces';
 import Link from 'next/link';
 import { ProductImage } from './ProductImage';
 
 interface Props {
-  product: SeedProduct;
+  product: IProduct;
 }
 
 export const ProductCard = ({ product }: Props) => {
