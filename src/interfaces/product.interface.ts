@@ -20,5 +20,6 @@ type SeriesType = 'lounge' | 'alabaster' | 'capsule';
 type FinishType = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
 
 export interface ISeedData {
+  series: string[];
   products: IProduct[];
 }
