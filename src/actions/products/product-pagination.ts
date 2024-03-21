@@ -1,13 +1,16 @@
 import prisma from '@/utils/prisma';
+import { Series } from '@prisma/client';
 
 interface IPaginationOptions {
   page?: number;
   take?: number;
+  series?: Series;
 }
 
 export const getPaginatedProductsWithImages = async ({
   page = 1,
-  take = 6,
+  take = 12,
+  series,
 }: IPaginationOptions = {}) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
@@ -25,8 +28,15 @@ export const getPaginatedProductsWithImages = async ({
             },
           },
         },
+        where: {
+          series: series,
+        },
       }),
-      prisma.product.count({}),
+      prisma.product.count({
+        where: {
+          series: series,
+        },
+      }),
     ]);
     const totalPages = Math.ceil(totalProducts / take);
 
