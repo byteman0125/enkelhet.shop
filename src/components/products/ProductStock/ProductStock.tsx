@@ -9,6 +9,7 @@ interface Props {
 
 export const ProductStock = ({ slug }: Props) => {
   const [stock, setStock] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     getStock();
   });
@@ -16,13 +17,20 @@ export const ProductStock = ({ slug }: Props) => {
   const getStock = async () => {
     const productStock = await getStockBySlug(slug);
     setStock(productStock);
+    setIsLoading(false);
   };
   return (
     <>
-      {stock === 0 ? (
-        <span className="bg-red-300 px-2">no stock</span>
+      {isLoading ? (
+        <span className={`w-[100px] px-2 flex items-center justify-center`}>
+          -
+        </span>
       ) : (
-        <span>stock: {stock}</span>
+        <span
+          className={`${stock === 0 ? 'bg-red-300' : ''} w-[100px] px-2 flex items-center justify-center`}
+        >
+          {stock === 0 ? 'no stock' : `stock: ${stock}`}
+        </span>
       )}
     </>
   );
