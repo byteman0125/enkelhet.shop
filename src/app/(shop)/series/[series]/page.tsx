@@ -1,28 +1,31 @@
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Hero, Pagination, ProductGrid } from '@/components';
-import { redirect } from 'next/navigation';
+import { Series } from '@prisma/client';
 
 interface Props {
+  params: {
+    series: string;
+  };
   searchParams: {
     page?: string;
   };
 }
 
-export default async function HomePage({ searchParams }: Props) {
+export default async function SeriesPage({ params, searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const series = params.series;
+
   const { products, currentPage, totalPages } =
     await getPaginatedProductsWithImages({
       page,
+      series: series as Series,
     });
 
-  if (products.length === 0) redirect('/');
-
   return (
-    <div>
+    <div className="">
       <Hero
-        text="All pieces are handmade in our workshop and produced on a made to order
-        basis. Please keep in mind that once your order is placed production
-        times can be from 8 - 10 weeks. Download full catalog here."
+        title={`${series}`}
+        text={`useParams is a Client Component hook that lets you read a route's dynamic params filled in by the current URL. ${series}`}
       />
       <ProductGrid products={products} />
       <Pagination totalPages={totalPages} />
