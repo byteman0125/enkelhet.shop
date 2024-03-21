@@ -1,7 +1,11 @@
 export const revalidate = 604800; //7days
 
 import { getProductBySlug } from '@/actions';
-import { ProductExperience, QuantitySelector } from '@/components';
+import {
+  ProductExperience,
+  ProductStock,
+  QuantitySelector,
+} from '@/components';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
@@ -40,8 +44,11 @@ export default async function ProductPage({ params }: Props) {
         <div className="col-span-12 xl:col-span-4 h-full flex flex-col justify-between">
           <div className="h-[calc(100vh-134px)] w-full sticky top-[134px] flex flex-col justify-between">
             <div className="p-4 flex flex-col gap-14">
-              <div className="flex flex-col font-bold">
-                <h1>{product.title}</h1>
+              <div className="flex flex-col">
+                <div className="flex w-full items-center justify-between">
+                  <h1 className="font-bold">{product.title}</h1>
+                  <ProductStock slug={product.slug} />
+                </div>
                 <span>{product.price}€</span>
               </div>
               <div className="flex flex-col md:grid grid-cols-6">
@@ -84,7 +91,7 @@ export default async function ProductPage({ params }: Props) {
             <div className="border-t border-black grid grid-cols-5">
               <QuantitySelector quantity={2} />
 
-              <div className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-[#0038a3] px-4 py-4 text-white text-sm md:text-base">
+              <div className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base">
                 <p>ADD TO CART</p>
               </div>
             </div>
