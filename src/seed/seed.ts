@@ -190,7 +190,7 @@ export const initialData: SeedData = {
       finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
-      series: 'alabaster',
+      series: 'capsule',
     },
 
     {
@@ -215,7 +215,7 @@ export const initialData: SeedData = {
       finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
-      series: 'lounge',
+      series: 'capsule',
     },
     {
       description:
@@ -227,7 +227,7 @@ export const initialData: SeedData = {
       finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
-      series: 'alabaster',
+      series: 'capsule',
     },
 
     {
