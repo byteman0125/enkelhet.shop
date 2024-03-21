@@ -6,12 +6,33 @@ import {
   ProductStock,
   QuantitySelector,
 } from '@/components';
+import { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 interface Props {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
+
+  const product = await getProductBySlug(slug);
+  //const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product?.title ?? 'product not found',
+    description: product?.description ?? '',
+    openGraph: {
+      title: product?.title ?? 'product not found',
+      description: product?.description ?? '',
+      images: [`/${product?.images[1]}`],
+    },
   };
 }
 
