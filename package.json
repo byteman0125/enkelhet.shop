@@ -9,6 +9,7 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky",
+    "postinstall": "prisma generate",
     "seed": "ts-node src/seed/seed-database.ts"
   },
   "engines": {
