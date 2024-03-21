@@ -28,8 +28,6 @@ model Product {
   slug        String   @unique
   tags        String[] @default([])
   series      Series
-
-  // Relaciones
   
   finish     Finish       @relation(fields: [finishId], references: [id])
   finishId   String
