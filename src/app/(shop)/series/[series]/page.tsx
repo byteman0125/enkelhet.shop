@@ -1,3 +1,5 @@
+export const revalidate = 60; //secs
+
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Hero, Pagination, ProductGrid } from '@/components';
 import { Series } from '@prisma/client';
@@ -15,11 +17,10 @@ export default async function SeriesPage({ params, searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
   const series = params.series;
 
-  const { products, currentPage, totalPages } =
-    await getPaginatedProductsWithImages({
-      page,
-      series: series as Series,
-    });
+  const { products, totalPages } = await getPaginatedProductsWithImages({
+    page,
+    series: series as Series,
+  });
 
   return (
     <div className="">
