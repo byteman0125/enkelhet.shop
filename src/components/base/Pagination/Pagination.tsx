@@ -47,7 +47,7 @@ export const Pagination = ({ totalPages }: Props) => {
           prev
         </Link>
         <div className="h-full flex items-center">
-          {allPages.map((page, i) => (
+          {allPages!.map((page, i) => (
             <Link
               href={createPageUrl(page)}
               key={page + '-' + i}
