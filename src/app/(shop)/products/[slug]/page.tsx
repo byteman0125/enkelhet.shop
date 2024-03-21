@@ -1,11 +1,9 @@
-'use client';
+export const revalidate = 604800; //7days
 
+import { getProductBySlug } from '@/actions';
 import { ProductExperience, QuantitySelector } from '@/components';
-import { useGSAP } from '@gsap/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: {
@@ -13,36 +11,27 @@ interface Props {
   };
 }
 
-gsap.registerPlugin(ScrollTrigger);
-
-export default function ProductPage({ params }: Props) {
+export default async function ProductPage({ params }: Props) {
   const { slug } = params;
-  const imageRef = useRef<HTMLDivElement>(null);
+  const product = await getProductBySlug(slug);
 
-  useGSAP(() => {
-    gsap.to('.gallery', {
-      scrollTrigger: {
-        trigger: '.gallery',
-        start: 'top 133px',
-        end: 'bottom bottom',
-        pin: '.right',
-        scrub: true,
-        onUpdate: (self) => {
-          const opacity = 1 - self.progress;
-          gsap.to(imageRef.current, { opacity: opacity });
-        },
-      },
-    });
-  });
+  if (!product) {
+    notFound();
+  }
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10">
-        SHOP / lounge / {slug}
+        SHOP / {product.series} / {product.title}
       </div>
       <div className="grid grid-cols-12 h-[calc(100vh-134px)] border-b-4 border-black md:border-none">
         <div className="col-span-12 xl:col-span-8 border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px]">
-            <Image src={`/product.webp`} alt="" fill className="object-cover" />
+            <Image
+              src={`/${product.images[0]}`}
+              alt=""
+              fill
+              className="object-cover"
+            />
           </div>
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px] ">
             <ProductExperience />
@@ -52,19 +41,13 @@ export default function ProductPage({ params }: Props) {
           <div className="h-[calc(100vh-134px)] w-full sticky top-[134px] flex flex-col justify-between">
             <div className="p-4 flex flex-col gap-14">
               <div className="flex flex-col font-bold">
-                <h1>ROCKER</h1>
-                <span>1500€</span>
+                <h1>{product.title}</h1>
+                <span>{product.price}€</span>
               </div>
               <div className="flex flex-col md:grid grid-cols-6">
                 <p className="col-span-2">DESCRIPTION</p>
                 <p className="text-[12px] font-bold col-span-4">
-                  Formica is OWL’s first series, marking the beginning of the
-                  brand and workshop. The collection presents a series of
-                  seating variations in baltic birch plywood, a neutral material
-                  fit for any type of home or interior design project. As a
-                  means to be open and customisable, the series comes with a
-                  collection of add-ons in formica, which allows for a more
-                  playful and colourful design.
+                  {product.description}
                 </p>
               </div>
               <div className="flex flex-col md:grid md:grid-cols-6">
