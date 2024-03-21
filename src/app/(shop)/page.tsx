@@ -1,3 +1,5 @@
+export const revalidate = 60; //secs
+
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Hero, Pagination, ProductGrid } from '@/components';
 import { redirect } from 'next/navigation';
@@ -10,10 +12,9 @@ interface Props {
 
 export default async function HomePage({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const { products, currentPage, totalPages } =
-    await getPaginatedProductsWithImages({
-      page,
-    });
+  const { products, totalPages } = await getPaginatedProductsWithImages({
+    page,
+  });
 
   if (products.length === 0) redirect('/');
 
