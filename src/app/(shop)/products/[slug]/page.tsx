@@ -44,7 +44,6 @@ export default async function ProductPage({ params }: Props) {
   if (!product) {
     notFound();
   }
-  console.log(product);
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10">
