@@ -13,26 +13,26 @@ enum Series {
   capsule
 }
 
-model Finish {
-  id      String    @id @default(uuid())
-  name    String    @unique
-  Product Product[]
+enum Finish {
+  oak
+  ash
+  walnut
+  wenge
 }
 
-model Product {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  inStock     Int
-  price       Float    @default(0)
-  slug        String   @unique
-  tags        String[] @default([])
-  series      Series
-  
-  finish     Finish       @relation(fields: [finishId], references: [id])
-  finishId   String
 
-  ProductImage ProductImage[]
+model Product {
+  id              String   @id @default(uuid())
+  title           String
+  description     String
+  inStock         Int
+  price           Float    @default(0)
+  slug            String   @unique
+  tags            String[] @default([])
+  series          Series
+  measurements    Json
+  finish          Finish[]
+  ProductImage    ProductImage[]
 
   @@index([series])
 }
