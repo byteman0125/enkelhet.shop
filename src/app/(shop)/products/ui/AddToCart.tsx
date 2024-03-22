@@ -13,7 +13,7 @@ export const AddToCart = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = () => {
-    console.log({ quantity, finish });
+    console.log({ quantity, finish, product });
   };
 
   return (

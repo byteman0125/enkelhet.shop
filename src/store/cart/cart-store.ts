@@ -3,8 +3,35 @@ import { create } from 'zustand';
 
 interface State {
   cart: ICartProduct[];
+  addToCart: (product: ICartProduct) => void;
 }
 
-export const useCartStore = create<State>()((set) => ({
+export const useCartStore = create<State>()((set, get) => ({
   cart: [],
+  addToCart: (product: ICartProduct) => {
+    const { cart } = get();
+    const productInCart = cart.some(
+      (item) => item.id === product.id && item.finish === product.finish
+    );
+    if (!productInCart) {
+      set({
+        cart: [...cart, product],
+      });
+      return;
+    }
+
+    const updatedCartProducts = cart.map((item) => {
+      if (item.id === product.id && item.finish === product.finish) {
+        return {
+          ...item,
+          quantity: item.quantity + product.quantity,
+        };
+      }
+      return item;
+    });
+
+    set({
+      cart: updatedCartProducts,
+    });
+  },
 }));
