@@ -8,6 +8,7 @@ type MeasurementsType = {
 };
 
 export interface IProduct {
+  id: string;
   description: string;
   images: string[];
   inStock: number;
