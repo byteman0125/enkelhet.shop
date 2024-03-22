@@ -4,33 +4,15 @@ import { initialData } from './seed';
 async function main() {
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
-  await prisma.finish.deleteMany();
 
-  const { categories, products } = initialData;
-
-  const categoriesData = categories.map((name) => ({ name }));
-
-  await prisma.finish.createMany({
-    data: categoriesData,
-  });
-
-  const categoriesDB = await prisma.finish.findMany();
-
-  const categoriesMap = categoriesDB.reduce(
-    (map, category) => {
-      map[category.name.toLowerCase()] = category.id;
-      return map;
-    },
-    {} as Record<string, string>
-  );
+  const { products } = initialData;
 
   products.forEach(async (product) => {
-    const { finish, images, ...rest } = product;
+    const { images, ...rest } = product;
 
     const dbProduct = await prisma.product.create({
       data: {
         ...rest,
-        finishId: categoriesMap[finish],
       },
     });
 

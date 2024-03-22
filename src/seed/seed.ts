@@ -6,19 +6,23 @@ export interface SeedProduct {
   slug: string;
   tags: string[];
   title: string;
-  finish: ValidFinish;
+  finish: ('oak' | 'ash' | 'walnut' | 'wenge')[];
   series: 'lounge' | 'alabaster' | 'capsule';
+  measurements: MeasurementsType;
 }
 
-type ValidFinish = 'oak' | 'ash' | 'wenge' | 'walnut';
+type MeasurementsType = {
+  total_height: string;
+  seat_height: string;
+  width: string;
+  depth: string;
+};
 
 interface SeedData {
-  categories: string[];
   products: SeedProduct[];
 }
 
 export const initialData: SeedData = {
-  categories: ['Walnut', 'Ash', 'Wenge', 'Oak'],
   products: [
     {
       description:
@@ -27,10 +31,16 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirt',
-      finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'lounge',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -39,10 +49,16 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jacket',
-      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'alabaster',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
 
     {
@@ -52,10 +68,17 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jacket',
-      finish: 'ash',
+
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -64,10 +87,17 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirtt',
-      finish: 'walnut',
+
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'lounge',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -76,10 +106,16 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jackett',
-      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'alabaster',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
 
     {
@@ -89,10 +125,16 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jackett',
-      finish: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -101,10 +143,16 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirtto',
-      finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'lounge',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -113,10 +161,16 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jacketto',
-      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'alabaster',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
 
     {
@@ -126,10 +180,16 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jacketto',
-      finish: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -138,10 +198,16 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirttoe',
-      finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'lounge',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -150,12 +216,17 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jackettoe',
-      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'alabaster',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
-
     {
       description:
         "Introducing the Tesla Raven Collection. The Men's Raven Lightweight Zip Up Bomber has a premium, modern silhouette made from a sustainable bamboo cotton blend for versatility in any season. The hoodie features subtle thermoplastic polyurethane Tesla logos on the left chest and below the back collar, a concealed chest pocket with custom matte zipper pulls and a french terry interior. Made from 70% bamboo and 30% cotton.",
@@ -163,10 +234,16 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jackettoe',
-      finish: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -175,10 +252,16 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirttoes',
-      finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'lounge',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -187,10 +270,16 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jackettoes',
-      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
 
     {
@@ -200,10 +289,16 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jackettoes',
-      finish: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -212,10 +307,16 @@ export const initialData: SeedData = {
       inStock: 7,
       price: 75,
       slug: 'mens_chill_crew_neck_sweatshirttoeso',
-      finish: 'walnut',
       tags: [''],
       title: 'Men’s Chill Crew Neck Sweatshirt',
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
       description:
@@ -224,12 +325,17 @@ export const initialData: SeedData = {
       inStock: 5,
       price: 200,
       slug: 'men_quilted_shirt_jackettoeso',
-      finish: 'wenge',
       tags: [''],
       title: "Men's Quilted Shirt Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
-
     {
       description:
         "Introducing the Tesla Raven Collection. The Men's Raven Lightweight Zip Up Bomber has a premium, modern silhouette made from a sustainable bamboo cotton blend for versatility in any season. The hoodie features subtle thermoplastic polyurethane Tesla logos on the left chest and below the back collar, a concealed chest pocket with custom matte zipper pulls and a french terry interior. Made from 70% bamboo and 30% cotton.",
@@ -237,10 +343,16 @@ export const initialData: SeedData = {
       inStock: 10,
       price: 130,
       slug: 'men_raven_lightweight_zip_up_bomber_jackettoeso',
-      finish: 'ash',
       tags: [''],
       title: "Men's Raven Lightweight Zip Up Bomber Jacket",
       series: 'capsule',
+      measurements: {
+        total_height: '85cm',
+        seat_height: '45cm',
+        width: '60cm',
+        depth: '80cm',
+      },
+      finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
   ],
 };
