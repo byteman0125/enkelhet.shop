@@ -3,6 +3,7 @@ export const revalidate = 604800; //7days
 import { getProductBySlug } from '@/actions';
 import {
   ProductExperience,
+  ProductFinishSelector,
   ProductStock,
   QuantitySelector,
 } from '@/components';
@@ -43,6 +44,7 @@ export default async function ProductPage({ params }: Props) {
   if (!product) {
     notFound();
   }
+  console.log(product);
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10">
@@ -51,12 +53,7 @@ export default async function ProductPage({ params }: Props) {
       <div className="grid grid-cols-12 h-[calc(100vh-134px)] border-b-4 border-black md:border-none">
         <div className="col-span-12 xl:col-span-8 border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px]">
-            <Image
-              src={`/${product.images[0]}`}
-              alt=""
-              fill
-              className="object-cover"
-            />
+            <Image src={`/product.webp`} alt="" fill className="object-cover" />
           </div>
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px] ">
             <ProductExperience />
@@ -88,26 +85,15 @@ export default async function ProductPage({ params }: Props) {
                     <p>Depth</p>
                   </div>
                   <div className="text-[12px] font-bold col-span-2">
-                    <p>85 cm</p>
-                    <p>45 cm</p>
-                    <p>60 cm</p>
-                    <p>80 cm</p>
+                    <p>measurement data</p>
+                    <p>measurement data</p>
+                    <p>measurement data</p>
+                    <p>measurement data</p>
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-6">
-                <p className="col-span-2">FINISH</p>
-                <div className="text-[12px] font-bold col-span-2">
-                  <div className="flex items-center gap-2">
-                    <button className="h-4 w-4 bg-[#022042] rounded-full"></button>
-                    <button className="h-4 w-4 bg-[#670007] rounded-full"></button>
-                    <button className="h-4 w-4 bg-[#cbbc96] rounded-full"></button>
-                  </div>
-                </div>
-                <div className="text-[12px] font-bold col-span-2">
-                  <div className="w-full aspect-square bg-[#022042] border border-black"></div>
-                </div>
-              </div>
+
+              <ProductFinishSelector finishes={product.finish} />
             </div>
             <div className="border-t border-black grid grid-cols-5">
               <QuantitySelector quantity={2} />
