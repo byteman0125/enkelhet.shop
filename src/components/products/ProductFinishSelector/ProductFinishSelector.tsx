@@ -1,14 +1,18 @@
 'use client';
+import { FinishType } from '@/interfaces';
 import Image from 'next/image';
-import { useState } from 'react';
 
 interface Props {
+  selectedFinish: Finish;
+  onFinishChange: (finish: FinishType) => void;
   finishes: ('oak' | 'ash' | 'walnut' | 'wenge')[];
 }
 
-export const ProductFinishSelector = ({ finishes }: Props) => {
-  const [selectedFinish, setSelectedFinish] = useState(finishes[0]);
-
+export const ProductFinishSelector = ({
+  finishes,
+  selectedFinish,
+  onFinishChange,
+}: Props) => {
   return (
     <div className="grid grid-cols-6">
       <div className="col-span-2">
@@ -21,7 +25,7 @@ export const ProductFinishSelector = ({ finishes }: Props) => {
             <button
               className={`relative w-5 h-5 ${selectedFinish === finish ? 'border border-black rounded-full' : ''}`}
               key={finish + i}
-              onClick={() => setSelectedFinish(finish)}
+              onClick={() => onFinishChange(finish)}
             >
               <Image
                 src={`/woods/${finish}.jpg`}

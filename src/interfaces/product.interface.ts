@@ -7,9 +7,11 @@ export interface IProduct {
   tags: string[];
   title: string;
   measurements: MeasurementsType;
-  finish: ('oak' | 'ash' | 'walnut' | 'wenge')[];
+  finish: FinishType[];
   series: 'lounge' | 'alabaster' | 'capsule';
 }
+
+export type FinishType = 'oak' | 'ash' | 'walnut' | 'wenge';
 
 type MeasurementsType = {
   total_height: number | null;

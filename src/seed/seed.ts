@@ -26,7 +26,7 @@ export const initialData: SeedData = {
   products: [
     {
       description:
-        'Introducing the Tesla Chill Collection. The Men’s Chill Crew Neck Sweatshirt has a premium, heavyweight exterior and soft fleece interior for comfort in any season. The sweatshirt features a subtle thermoplastic polyurethane T logo on the chest and a Tesla wordmark below the back collar. Made from 60% cotton and 40% recycled polyester.',
+        'Introducing the Tesla Chill Collection. The Men’s Chill Crew Neck Sweatshirt has a premium, heavyweight exterior and soft fleece interior for comfort in any season. ',
       images: ['example.jpg', 'example-2.webp'],
       inStock: 7,
       price: 75,
@@ -44,7 +44,7 @@ export const initialData: SeedData = {
     },
     {
       description:
-        "The Men's Quilted Shirt Jacket features a uniquely fit, quilted design for warmth and mobility in cold weather seasons. With an overall street-smart aesthetic, the jacket features subtle silicone injected Tesla logos below the back collar and on the right sleeve, as well as custom matte metal zipper pulls. Made from 87% nylon and 13% polyurethane.",
+        "The Men's Quilted Shirt Jacket features a uniquely fit, quilted design for warmth and mobility in cold weather seasons.",
       images: ['example.jpg', 'example-2.webp'],
       inStock: 5,
       price: 200,
