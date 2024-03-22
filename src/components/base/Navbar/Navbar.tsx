@@ -1,12 +1,20 @@
 'use client';
-import { useUiStore } from '@/store';
+import { useCartStore, useUiStore } from '@/store';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { navItems } from './navItems';
 
 export const Navbar = () => {
+  const [loaded, setLoaded] = useState(false);
   const { openSideMenu } = useUiStore();
+  const totalItemsinCart = useCartStore((state) => state.getTotalItems());
   const { series } = useParams();
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   return (
     <nav className="py-4 px-2 flex items-center justify-between md:px-4 xl:px-6 border-b border-black  bg-white sticky top-0  z-10">
       <Link href="/" className="font-black text-2xl font-sans md:text-5xl">
@@ -29,7 +37,7 @@ export const Navbar = () => {
           <button>SEARCH</button>
         </li>
         <li>
-          <Link href={`/cart`}>CART (0)</Link>
+          <Link href={`/cart`}>CART ({loaded ? totalItemsinCart : 0})</Link>
         </li>
         <li>
           <button onClick={openSideMenu}>MENU</button>
