@@ -1,3 +1,12 @@
+export type FinishType = 'oak' | 'ash' | 'walnut' | 'wenge';
+
+type MeasurementsType = {
+  total_height: number | null;
+  seat_height: number | null;
+  width: number | null;
+  depth: number | null;
+};
+
 export interface IProduct {
   description: string;
   images: string[];
@@ -11,11 +20,12 @@ export interface IProduct {
   series: 'lounge' | 'alabaster' | 'capsule';
 }
 
-export type FinishType = 'oak' | 'ash' | 'walnut' | 'wenge';
-
-type MeasurementsType = {
-  total_height: number | null;
-  seat_height: number | null;
-  width: number | null;
-  depth: number | null;
-};
+export interface ICartProduct {
+  id: string;
+  slug: string;
+  title: string;
+  price: number;
+  quantity: number;
+  finish: FinishType;
+  image: string;
+}
