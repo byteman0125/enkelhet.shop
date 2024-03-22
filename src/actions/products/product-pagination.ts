@@ -27,6 +27,14 @@ export const getPaginatedProductsWithImages = async ({
               url: true,
             },
           },
+          measurements: {
+            select: {
+              total_height: true,
+              seat_height: true,
+              width: true,
+              depth: true,
+            },
+          },
         },
         where: {
           series: series,

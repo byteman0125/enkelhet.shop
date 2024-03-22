@@ -11,6 +11,14 @@ export const getProductBySlug = async (slug: string) => {
             url: true,
           },
         },
+        measurements: {
+          select: {
+            total_height: true,
+            seat_height: true,
+            width: true,
+            depth: true,
+          },
+        },
       },
       where: {
         slug: slug,

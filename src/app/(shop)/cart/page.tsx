@@ -1,11 +1,11 @@
 import { CartItem, EmptyCart } from '@/components';
-import { SeedProduct, initialData } from '@/seed/seed';
+import { IProduct } from '@/interfaces';
+import { initialData } from '@/seed/seed';
 import Link from 'next/link';
 
-const productsInCart: SeedProduct[] = [
+const productsInCart: IProduct[] = [
   initialData.products[0],
   initialData.products[1],
-  initialData.products[2],
 ];
 
 export default function CartPage() {

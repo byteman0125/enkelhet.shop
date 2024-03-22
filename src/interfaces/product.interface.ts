@@ -1,5 +1,4 @@
 export interface IProduct {
-  id: string;
   description: string;
   images: string[];
   inStock: number;
@@ -7,9 +6,16 @@ export interface IProduct {
   slug: string;
   tags: string[];
   title: string;
-  //todo:finish: Finish;
-  series: Series;
+  measurements: MeasurementsType;
+  finish: FinishType[];
+  series: 'lounge' | 'alabaster' | 'capsule';
 }
 
-export type Series = 'lounge' | 'alabaster' | 'capsule';
-export type Finish = 'Oak' | 'Ash' | 'Walnut' | 'Wenge';
+export type FinishType = 'oak' | 'ash' | 'walnut' | 'wenge';
+
+type MeasurementsType = {
+  total_height: number | null;
+  seat_height: number | null;
+  width: number | null;
+  depth: number | null;
+};
