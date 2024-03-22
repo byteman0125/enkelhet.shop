@@ -85,10 +85,10 @@ export default async function ProductPage({ params }: Props) {
                     <p>Depth</p>
                   </div>
                   <div className="text-[12px] font-bold col-span-2">
-                    <p>measurement data</p>
-                    <p>measurement data</p>
-                    <p>measurement data</p>
-                    <p>measurement data</p>
+                    <p>{product.measurements.width}cm</p>
+                    <p>{product.measurements.seat_height}cm</p>
+                    <p>{product.measurements.width}cm</p>
+                    <p>{product.measurements.depth}cm</p>
                   </div>
                 </div>
               </div>

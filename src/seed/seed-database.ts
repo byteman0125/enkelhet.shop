@@ -4,15 +4,26 @@ import { initialData } from './seed';
 async function main() {
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
+  await prisma.measurements.deleteMany();
 
   const { products } = initialData;
 
   products.forEach(async (product) => {
-    const { images, ...rest } = product;
+    const { images, measurements, ...rest } = product;
+
+    let dbMeasurements;
+    if (measurements) {
+      dbMeasurements = await prisma.measurements.create({
+        data: measurements,
+      });
+    }
 
     const dbProduct = await prisma.product.create({
       data: {
         ...rest,
+        measurements: {
+          connect: { id: dbMeasurements ? dbMeasurements.id : undefined },
+        },
       },
     });
 
