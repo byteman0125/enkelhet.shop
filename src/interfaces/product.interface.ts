@@ -12,8 +12,8 @@ export interface IProduct {
 }
 
 type MeasurementsType = {
-  total_height: string;
-  seat_height: string;
-  width: string;
-  depth: string;
+  total_height: number | null;
+  seat_height: number | null;
+  width: number | null;
+  depth: number | null;
 };
