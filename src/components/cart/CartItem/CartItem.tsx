@@ -1,6 +1,7 @@
 import { QuantityProductSelector } from '@/app/(shop)/products/ui/QuantityProductSelector';
 import { ICartProduct } from '@/interfaces';
 import { useCartStore } from '@/store';
+import { currencyFormat } from '@/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -54,8 +55,10 @@ export const CartItem = ({ product, editable = true }: Props) => {
               />
             ) : (
               <div className="px-4">
-                <p>{product.price}€ x 3</p>
-                <p className="font-bold">Subtotal: {product.price * 3}€</p>
+                <p>{currencyFormat(product.price)} x 3</p>
+                <p className="font-bold">
+                  Subtotal: {currencyFormat(product.price * 3)}
+                </p>
               </div>
             )}
           </div>
