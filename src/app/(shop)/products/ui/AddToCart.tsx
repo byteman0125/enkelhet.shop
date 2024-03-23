@@ -1,6 +1,7 @@
 'use client';
 import { ProductFinishSelector } from '@/components';
-import { FinishType, IProduct } from '@/interfaces';
+import { FinishType, ICartProduct, IProduct } from '@/interfaces';
+import { useCartStore } from '@/store';
 import { useState } from 'react';
 import { QuantityProductSelector } from './QuantityProductSelector';
 
@@ -9,11 +10,24 @@ interface Props {
 }
 
 export const AddToCart = ({ product }: Props) => {
+  const addProductToCart = useCartStore((state) => state.addToCart);
   const [finish, setFinish] = useState<FinishType>('ash');
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = () => {
-    console.log({ quantity, finish });
+    const cartProduct: ICartProduct = {
+      id: product.id,
+      slug: product.slug,
+      title: product.title,
+      price: product.price,
+      quantity: quantity,
+      finish: finish,
+      image: product.images[0],
+    };
+
+    addProductToCart(cartProduct);
+    setQuantity(1);
+    setFinish('ash');
   };
 
   return (
