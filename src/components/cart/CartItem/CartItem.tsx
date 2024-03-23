@@ -13,6 +13,8 @@ export const CartItem = ({ product, editable = true }: Props) => {
   const updateProductQuantity = useCartStore(
     (state) => state.updateProductQuantity
   );
+  const updateCartProduct = useCartStore((state) => state.removeCartProduct);
+
   return (
     <div className="border-b border-black flex h-fit md:h-[140px]">
       <figure className="aspect-square relative border-r border-black">
@@ -33,7 +35,10 @@ export const CartItem = ({ product, editable = true }: Props) => {
           </Link>
 
           {editable && (
-            <button className="hover:underline underline-offset-2">
+            <button
+              className="hover:underline underline-offset-2"
+              onClick={() => updateCartProduct(product)}
+            >
               <p>REMOVE</p>
             </button>
           )}
