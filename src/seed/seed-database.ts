@@ -4,33 +4,26 @@ import { initialData } from './seed';
 async function main() {
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
-  await prisma.finish.deleteMany();
+  await prisma.measurements.deleteMany();
 
-  const { categories, products } = initialData;
-
-  const categoriesData = categories.map((name) => ({ name }));
-
-  await prisma.finish.createMany({
-    data: categoriesData,
-  });
-
-  const categoriesDB = await prisma.finish.findMany();
-
-  const categoriesMap = categoriesDB.reduce(
-    (map, category) => {
-      map[category.name.toLowerCase()] = category.id;
-      return map;
-    },
-    {} as Record<string, string>
-  );
+  const { products } = initialData;
 
   products.forEach(async (product) => {
-    const { finish, images, ...rest } = product;
+    const { images, measurements, ...rest } = product;
+
+    let dbMeasurements;
+    if (measurements) {
+      dbMeasurements = await prisma.measurements.create({
+        data: measurements,
+      });
+    }
 
     const dbProduct = await prisma.product.create({
       data: {
         ...rest,
-        finishId: categoriesMap[finish],
+        measurements: {
+          connect: { id: dbMeasurements ? dbMeasurements.id : undefined },
+        },
       },
     });
 

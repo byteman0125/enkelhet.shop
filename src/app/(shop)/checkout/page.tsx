@@ -1,4 +1,3 @@
-import { CartItem } from '@/components';
 import { initialData } from '@/seed/seed';
 import Link from 'next/link';
 
@@ -23,9 +22,9 @@ export default function CheckoutPage() {
         className={`w-full grid grid-cols-1 xl:grid-cols-2 ${productsInCart.length <= 3 ? 'border-b border-black' : ''} `}
       >
         <div className="w-full h-full border-r border-black">
-          {productsInCart.map((product) => (
+          {/* {productsInCart.map((product) => (
             <CartItem product={product} key={product.slug} editable={false} />
-          ))}
+          ))} */}
         </div>
         <div
           className={`w-full flex flex-col justify-between sticky top-[137px] h-[calc(100vh-81px-56px)]  border-b border-black`}

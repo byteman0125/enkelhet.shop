@@ -1,4 +1,5 @@
 import { IProduct } from '@/interfaces';
+import { currencyFormat } from '@/utils';
 import Link from 'next/link';
 import { ProductImage } from './ProductImage';
 
@@ -16,7 +17,7 @@ export const ProductCard = ({ product }: Props) => {
       <div className="p-2 text-sm">
         <p className="uppercase">{product.title}</p>
         <div className="flex items-center justify-between">
-          <p>{product.price}€</p>
+          <p>{currencyFormat(product.price)}</p>
           <div className="flex items-center gap-2">
             <div className="h-4 w-4 bg-red-600 rounded-full"></div>
             <div className="h-4 w-4 bg-green-600 rounded-full"></div>
