@@ -1,4 +1,3 @@
-import { CartItem } from '@/components';
 import { initialData } from '@/seed/seed';
 import Link from 'next/link';
 
@@ -30,9 +29,9 @@ export default function OrderPage({ params }: Props) {
       </div>
       <div className={`w-full grid grid-cols-1 xl:grid-cols-2 `}>
         <div className="w-full h-full border-r border-black">
-          {productsInCart.map((product) => (
+          {/* {productsInCart.map((product) => (
             <CartItem product={product} key={product.slug} editable={false} />
-          ))}
+          ))} */}
         </div>
         <div
           className={`w-full sticky top-[137px] h-[calc(100vh-81px-56px)] flex flex-col justify-between`}
