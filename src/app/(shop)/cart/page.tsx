@@ -10,7 +10,7 @@ export default function CartPage() {
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
         <ProductsInCart />
-        <div className="w-full flex flex-col justify-between sticky top-[137px] h-[calc(100vh-81px-56px)]">
+        <div className="w-full flex flex-col justify-between sticky top-[137px] h-[calc(100vh-81px-57px)]">
           <div className="p-8">
             <h1 className="text-xl">Order summary</h1>
             <div className="grid grid-cols-2">

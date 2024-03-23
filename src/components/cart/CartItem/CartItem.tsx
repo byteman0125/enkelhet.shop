@@ -1,5 +1,6 @@
 import { QuantityProductSelector } from '@/app/(shop)/products/ui/QuantityProductSelector';
 import { ICartProduct } from '@/interfaces';
+import { useCartStore } from '@/store';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,6 +10,9 @@ interface Props {
 }
 
 export const CartItem = ({ product, editable = true }: Props) => {
+  const updateProductQuantity = useCartStore(
+    (state) => state.updateProductQuantity
+  );
   return (
     <div className="border-b border-black flex h-fit md:h-[140px]">
       <figure className="aspect-square relative border-r border-black">
@@ -38,8 +42,10 @@ export const CartItem = ({ product, editable = true }: Props) => {
           <div className="max-w-52 w-full">
             {editable ? (
               <QuantityProductSelector
-                onQuantityChange={(value) => console.log(value)}
-                quantity={1}
+                onQuantityChange={(quantity) =>
+                  updateProductQuantity(product, quantity)
+                }
+                quantity={product.quantity}
               />
             ) : (
               <div className="px-4">
