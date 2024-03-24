@@ -20,7 +20,9 @@ export const Sidebar = () => {
             <ul className="flex flex-col gap-1">
               {sidebarItems.map(({ label, url }) => (
                 <li key={label}>
-                  <Link href={`${url}`}>{label}</Link>
+                  <Link href={`${url}`} onClick={closeSideMenu}>
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
