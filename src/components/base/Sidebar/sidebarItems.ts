@@ -1,7 +1,7 @@
 export const sidebarItems = [
   {
     label: 'Profile',
-    url: '',
+    url: '/profile',
   },
   {
     label: 'Orders',

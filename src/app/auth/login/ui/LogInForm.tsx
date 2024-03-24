@@ -1,12 +1,20 @@
 'use client';
 import { authenticate } from '@/actions';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
 export const LogInForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
   const [visible, setVisible] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state === 'Success') {
+      router.replace(`/`);
+    }
+  }, [state]);
 
   return (
     <form
@@ -45,7 +53,7 @@ export const LogInForm = () => {
               <svg
                 stroke="black"
                 fill="black"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="24px"
                 width="24px"
@@ -57,7 +65,7 @@ export const LogInForm = () => {
               <svg
                 stroke="black"
                 fill="black"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="24px"
                 width="24px"
@@ -73,7 +81,7 @@ export const LogInForm = () => {
         <LoginButton />
       </div>
       <div className="h-5">
-        {state === 'CredentialsSignIn' && (
+        {state === 'CredentialsSignin' && (
           <p className="text-red-400">Invalid email or password</p>
         )}
       </div>
