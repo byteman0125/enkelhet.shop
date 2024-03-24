@@ -10,3 +10,23 @@
   border-top: var(--border);
   border-left: var(--border);
 }
+
+@keyframes typing {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+}
+
+.typing-animation::after {
+  content: '...';
+  animation: typing 1s infinite;
+}
