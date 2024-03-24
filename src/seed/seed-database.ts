@@ -2,11 +2,16 @@ import prisma from '../utils/prisma';
 import { initialData } from './seed';
 
 async function main() {
+  await prisma.user.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.measurements.deleteMany();
 
-  const { products } = initialData;
+  const { products, users } = initialData;
+
+  await prisma.user.createMany({
+    data: users,
+  });
 
   products.forEach(async (product) => {
     const { images, measurements, ...rest } = product;

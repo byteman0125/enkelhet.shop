@@ -1,3 +1,5 @@
+import bcyptjs from 'bcryptjs';
+
 export interface SeedProduct {
   description: string;
   images: string[];
@@ -11,6 +13,13 @@ export interface SeedProduct {
   measurements: MeasurementsType;
 }
 
+export interface SeedUser {
+  name: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'user';
+}
+
 type MeasurementsType = {
   total_height: number;
   seat_height: number;
@@ -19,10 +28,25 @@ type MeasurementsType = {
 };
 
 interface SeedData {
+  users: SeedUser[];
   products: SeedProduct[];
 }
 
 export const initialData: SeedData = {
+  users: [
+    {
+      email: 'tomas@google.com',
+      name: 'Tomas Ferreras',
+      password: bcyptjs.hashSync('12345678'),
+      role: 'admin',
+    },
+    {
+      email: 'victoria@google.com',
+      name: 'Victoria Plaza',
+      password: bcyptjs.hashSync('12345678'),
+      role: 'user',
+    },
+  ],
   products: [
     {
       description:
