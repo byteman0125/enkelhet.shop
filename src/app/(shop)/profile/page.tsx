@@ -7,7 +7,7 @@ export default async function ProfilePage() {
 
   if (!session?.user) {
     //redirect(`/auth/login?redirectTo=profile`);
-    redirect(`/auth/login`);
+    redirect(`/`);
   }
   return (
     <>

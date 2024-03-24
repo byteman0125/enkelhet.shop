@@ -1,4 +1,5 @@
 'use client';
+import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import Link from 'next/link';
 import { sidebarItems } from './sidebarItems';
@@ -20,7 +21,13 @@ export const Sidebar = () => {
             <ul className="flex flex-col gap-1">
               {sidebarItems.map(({ label, url }) => (
                 <li key={label}>
-                  <Link href={`${url}`} onClick={closeSideMenu}>
+                  <Link
+                    href={`${url}`}
+                    onClick={() => {
+                      logout();
+                      closeSideMenu();
+                    }}
+                  >
                     {label}
                   </Link>
                 </li>
