@@ -1,7 +1,7 @@
 'use client';
 import { authenticate } from '@/actions';
 import Link from 'next/link';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 
 export const LogInForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
@@ -33,12 +33,12 @@ export const LogInForm = () => {
         />
       </div>
       <div className="w-full flex items-center mb-8">
-        <button
-          type="submit"
-          className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base "
-        >
-          Log In
-        </button>
+        <LoginButton />
+      </div>
+      <div className="h-5">
+        {state === 'CredentialsSignIn' && (
+          <p className="text-red-400">Invalid email or password</p>
+        )}
       </div>
       <div className="w-full flex items-center justify-end mb-8">
         <Link
@@ -55,5 +55,22 @@ export const LogInForm = () => {
         </button>
       </div>
     </form>
+  );
+};
+
+const LoginButton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className={`flex items-center justify-center col-span-2 md:col-span-3 w-full px-4 py-4 text-white text-sm md:text-base h-14 bg-black`}
+      disabled={pending}
+    >
+      {pending ? (
+        <span className="typing-animation"></span>
+      ) : (
+        <span>Log In</span>
+      )}
+    </button>
   );
 };
