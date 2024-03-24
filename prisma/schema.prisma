@@ -20,6 +20,11 @@ enum Finish {
   wenge
 }
 
+enum Role {
+  admin
+  user
+}
+
 model Measurements {
   id             String    @id @unique @default(uuid())
   total_height   Int?
@@ -52,3 +57,13 @@ model ProductImage {
   product   Product @relation(fields: [productId], references: [id])
   productId String
 }
+
+model User {
+  id              String    @id @default(uuid())
+  name            String 
+  email           String    @unique
+  emailVerified   DateTime?
+  password        String
+  role            Role      @default(user)
+  image           String?
+} 
