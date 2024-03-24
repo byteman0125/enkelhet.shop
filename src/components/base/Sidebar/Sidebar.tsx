@@ -9,7 +9,7 @@ export const Sidebar = () => {
     isSidemenuOpen && (
       <>
         <div
-          className="fixed top-0 left-0 w-full h-screen z-10 bg-black opacity-30"
+          className="fixed top-0 left-0 w-full h-screen z-20 bg-black opacity-30"
           onClick={closeSideMenu}
         />
         <div className="fixed top-0 right-0 w-[20vw] h-screen bg-white z-20">
@@ -18,9 +18,9 @@ export const Sidebar = () => {
           </div>
           <nav className="p-6 flex flex-col gap-5">
             <ul className="flex flex-col gap-1">
-              {sidebarItems.map(({ label }) => (
+              {sidebarItems.map(({ label, url }) => (
                 <li key={label}>
-                  <Link href={`/${label}`}>{label}</Link>
+                  <Link href={`${url}`}>{label}</Link>
                 </li>
               ))}
             </ul>

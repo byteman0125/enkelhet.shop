@@ -1,14 +1,18 @@
 export const sidebarItems = [
   {
     label: 'Profile',
+    url: '',
   },
   {
     label: 'Orders',
+    url: '',
   },
   {
-    label: 'Sign In',
+    label: 'Log In',
+    url: '/auth/login',
   },
   {
-    label: 'Sign Out',
+    label: 'Log Out',
+    url: '',
   },
 ];
