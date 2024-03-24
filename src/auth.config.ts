@@ -1,7 +1,9 @@
+import bcryptjs from 'bcryptjs';
 import type { NextAuthConfig } from 'next-auth';
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
+import prisma from './utils/prisma';
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -15,16 +17,18 @@ export const authConfig: NextAuthConfig = {
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
-        if (!parsedCredentials.success) return null;
+        if (!parsedCredentials.success) throw new Error('Invalid data entered');
         const { email, password } = parsedCredentials.data;
-        console.log({ email, password });
-        //search email
+        const user = await prisma.user.findUnique({
+          where: { email: email.toLowerCase() },
+        });
 
-        //compare password
-
-        //return user data
-
-        return null;
+        if (!user) throw new Error('User not found');
+        if (!bcryptjs.compareSync(password, user.password))
+          throw new Error('Invalid password');
+        const { password: _, ...rest } = user;
+        console.log(rest);
+        return rest;
       },
     }),
   ],
