@@ -8,6 +8,8 @@ export const LogInForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
   const [visible, setVisible] = useState(false);
 
+  console.log({ state });
+
   return (
     <form
       action={dispatch}
@@ -45,7 +47,7 @@ export const LogInForm = () => {
               <svg
                 stroke="black"
                 fill="black"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="24px"
                 width="24px"
@@ -57,7 +59,7 @@ export const LogInForm = () => {
               <svg
                 stroke="black"
                 fill="black"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="24px"
                 width="24px"

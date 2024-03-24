@@ -17,17 +17,16 @@ export const authConfig: NextAuthConfig = {
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
-        if (!parsedCredentials.success) throw new Error('Invalid data entered');
+        if (!parsedCredentials.success) return null;
+
         const { email, password } = parsedCredentials.data;
         const user = await prisma.user.findUnique({
           where: { email: email.toLowerCase() },
         });
-
-        if (!user) throw new Error('User not found');
-        if (!bcryptjs.compareSync(password, user.password))
-          throw new Error('Invalid password');
+        if (!user) return null;
+        if (!bcryptjs.compareSync(password, user.password)) return null;
         const { password: _, ...rest } = user;
-        console.log(rest);
+
         return rest;
       },
     }),
