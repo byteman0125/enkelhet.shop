@@ -6,9 +6,10 @@ export default async function ProfilePage() {
   const session = await auth();
 
   if (!session?.user) {
-    //redirect(`/auth/login?redirectTo=profile`);
-    redirect(`/`);
+    // redirect('/auth/login?returnTo=/profile');
+    redirect('/');
   }
+
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10 flex items-center gap-3">
@@ -21,6 +22,9 @@ export default async function ProfilePage() {
         />
         Hello {session?.user?.name}!
       </div>
+      <pre>{JSON.stringify(session.user, null, 2)}</pre>
+
+      <h3>{session.user.role}</h3>
     </>
   );
 }

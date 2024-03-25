@@ -23,6 +23,7 @@ export default function RegisterPage() {
             className="border border-black p-3"
           />
           <input
+            autoComplete="current-password"
             type="password"
             placeholder="Repeat password"
             className="border border-black p-3"
