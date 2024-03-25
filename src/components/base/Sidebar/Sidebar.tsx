@@ -1,15 +1,24 @@
 'use client';
+import { logout } from '@/actions';
 import { useUiStore } from '@/store';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { sidebarItems } from './sidebarItems';
+import { useEffect } from 'react';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
+  const { data: session } = useSession();
+
+  const isAuthenticated = !!session?.user;
+  const isAdmin = session?.user.role === 'admin';
+
+  useEffect(() => {}, []);
+
   return (
     isSidemenuOpen && (
       <>
         <div
-          className="fixed top-0 left-0 w-full h-screen z-10 bg-black opacity-30"
+          className="fixed top-0 left-0 w-full h-screen z-20 bg-black opacity-30"
           onClick={closeSideMenu}
         />
         <div className="fixed top-0 right-0 w-[20vw] h-screen bg-white z-20">
@@ -17,21 +26,68 @@ export const Sidebar = () => {
             <button onClick={closeSideMenu}>CLOSE</button>
           </div>
           <nav className="p-6 flex flex-col gap-5">
-            <ul className="flex flex-col gap-1">
-              {sidebarItems.map(({ label }) => (
-                <li key={label}>
-                  <Link href={`/${label}`}>{label}</Link>
+            <ul className="flex flex-col gap-5">
+              {isAuthenticated && (
+                <>
+                  <li>
+                    <Link
+                      href={`/profile`}
+                      onClick={() => {
+                        closeSideMenu();
+                      }}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/orders`}
+                      onClick={() => {
+                        closeSideMenu();
+                      }}
+                    >
+                      Orders
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/`}
+                      onClick={() => {
+                        logout();
+                        closeSideMenu();
+                      }}
+                    >
+                      Log Out
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              {!isAuthenticated && (
+                <li>
+                  <Link
+                    href={`/auth/login`}
+                    onClick={() => {
+                      closeSideMenu();
+                    }}
+                  >
+                    Log In
+                  </Link>
                 </li>
-              ))}
+              )}
             </ul>
-            <div className="w-full h-px bg-black my-10" />
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-yellow-300 rounded-full" />
-              <p>Admin panel</p>
-            </div>
-            <Link href={`/`}>Products</Link>
-            <Link href={`/`}>Orders</Link>
-            <Link href={`/`}>Users</Link>
+            {isAdmin && (
+              <>
+                <div className="w-full h-px bg-black my-10" />
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-yellow-300 rounded-full" />
+                  <p>Admin panel</p>
+                </div>
+                <Link href={`/`}>Products</Link>
+                <Link href={`/`}>Orders</Link>
+                <Link href={`/`}>Users</Link>
+              </>
+            )}
           </nav>
         </div>
       </>

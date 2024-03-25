@@ -22,8 +22,8 @@ export default function Error() {
           <path
             d="M1 7H17M17 7L11 1M17 7L11 13"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
         </svg>
       </Link>
