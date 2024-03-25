@@ -1,4 +1,5 @@
 'use client';
+import { ICountry } from '@/interfaces';
 import { useForm } from 'react-hook-form';
 
 type FormInputs = {
@@ -13,7 +14,11 @@ type FormInputs = {
   rememberAddress?: boolean;
 };
 
-export const AddressForm = () => {
+interface Props {
+  countries: ICountry[];
+}
+
+export const AddressForm = ({ countries }: Props) => {
   const {
     handleSubmit,
     register,
@@ -79,12 +84,18 @@ export const AddressForm = () => {
             className="p-3 border-t border-black outline-none"
             {...register('city', { required: true })}
           />
-          <input
-            type="text"
-            placeholder="Country"
+
+          <select
             className="p-3 border-t border-black col-span-2 outline-none"
             {...register('country', { required: true })}
-          />
+          >
+            <option value="">[ Select country ]</option>
+            {countries.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex items-center gap-3 mt-8">
           <input
