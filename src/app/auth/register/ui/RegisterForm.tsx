@@ -1,23 +1,37 @@
 'use client';
-import { authenticate } from '@/actions';
+
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-export const LogInForm = () => {
-  const [state, dispatch] = useFormState(authenticate, undefined);
+type FormInputs = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export const RegisterForm = () => {
   const [visible, setVisible] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>();
 
-  useEffect(() => {
-    if (state === 'Success') {
-      window.location.replace('/');
-    }
-  }, [state]);
+  console.log(errors);
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    const { name, email, password } = data;
+  };
+
+  const requireError =
+    errors.email?.type === 'required' ||
+    errors.name?.type == 'required' ||
+    errors.password?.type == 'required';
 
   return (
     <form
-      action={dispatch}
-      className="max-w-[600px] w-full h-[800px] bg-white border border-black p-8 flex flex-col"
+      className="max-w-[600px] w-full h-full md:h-[800px] bg-white border border-black p-8 flex flex-col"
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Link
         href="/"
@@ -25,20 +39,28 @@ export const LogInForm = () => {
       >
         enkelhet
       </Link>
-      <p className="mb-2">LOGIN</p>
+      <p className="mb-2">REGISTER</p>
       <div className="flex flex-col gap-3  mb-8">
         <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          className="border border-black p-3 outline-none"
+          type="text"
+          placeholder="Full Name"
+          className={`border p-3 ${errors.name ? 'border-red-400' : 'border-black'} outline-none`}
+          {...register('name', { required: true })}
+          autoFocus
         />
+        <input
+          type="text"
+          placeholder="Email"
+          className={`border p-3 ${errors.email ? 'border-red-400' : 'border-black'} outline-none`}
+          {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+        />
+
         <div className="w-full flex items-center relative">
           <input
             type={visible ? 'text' : 'password'}
             placeholder="Password"
-            name="password"
-            className="w-full  border border-black p-3 outline-none"
+            className={`border p-3 ${errors.password ? 'border-red-400' : 'border-black'} w-full outline-none`}
+            {...register('password', { required: true, minLength: 6 })}
           />
           <button
             className="absolute right-3 mt-auto mb-auto top-0 bottom-0"
@@ -74,46 +96,36 @@ export const LogInForm = () => {
             )}
           </button>
         </div>
+        <div className="h-5 text-sm text-gray-500">
+          <p>Min. length 6</p>
+        </div>
       </div>
       <div className="w-full flex items-center mb-8">
-        <LoginButton />
+        <button
+          className={`flex items-center justify-center col-span-2 md:col-span-3 w-full px-4 py-4 text-white text-sm md:text-base ${'bg-black'}`}
+        >
+          Register
+        </button>
       </div>
       <div className="h-5">
-        {state === 'CredentialsSignin' && (
-          <p className="text-red-400">Invalid email or password</p>
-        )}
+        <p className="text-red-400">
+          {requireError && 'Some fields are required'}
+          {!requireError &&
+            errors.password?.type == 'minLength' &&
+            'Password must be minimum 6 characters'}
+        </p>
       </div>
       <div className="w-full flex items-center justify-end mb-8">
-        <Link
-          href="/auth/register"
-          className="hover:underline underline-offset-2"
-        >
-          Create new account
+        <Link href="/auth/login" className="hover:underline underline-offset-2">
+          Have an account already?
         </Link>
       </div>
       <div className="w-full h-px bg-black mb-8"></div>
       <div className="w-full flex items-center">
         <button className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base ">
-          Log In with Google
+          Sign In with Google
         </button>
       </div>
     </form>
-  );
-};
-
-const LoginButton = () => {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      className={`flex items-center justify-center col-span-2 md:col-span-3 w-full px-4 py-4 text-white text-sm md:text-base h-14 bg-black`}
-      disabled={pending}
-    >
-      {pending ? (
-        <span className="typing-animation"></span>
-      ) : (
-        <span>Log In</span>
-      )}
-    </button>
   );
 };
