@@ -42,7 +42,7 @@ export const CartSummary = () => {
         )}
       </div>
       <div className="w-full flex items-center justify-end">
-        {itemsInCart ? (
+        {loaded && itemsInCart ? (
           <Link
             href={`/checkout/address`}
             className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base"
