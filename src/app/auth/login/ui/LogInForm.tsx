@@ -1,18 +1,16 @@
 'use client';
 import { authenticate } from '@/actions';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
 export const LogInForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
   const [visible, setVisible] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     if (state === 'Success') {
-      router.replace(`/`);
+      window.location.replace('/');
     }
   }, [state]);
 

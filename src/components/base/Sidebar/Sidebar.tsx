@@ -3,12 +3,16 @@ import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
   const { data: session } = useSession();
 
   const isAuthenticated = !!session?.user;
+  const isAdmin = session?.user.role === 'admin';
+
+  useEffect(() => {}, []);
 
   return (
     isSidemenuOpen && (
@@ -23,26 +27,42 @@ export const Sidebar = () => {
           </div>
           <nav className="p-6 flex flex-col gap-5">
             <ul className="flex flex-col gap-5">
-              <li>
-                <Link
-                  href={`/profile`}
-                  onClick={() => {
-                    closeSideMenu();
-                  }}
-                >
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/orders`}
-                  onClick={() => {
-                    closeSideMenu();
-                  }}
-                >
-                  Orders
-                </Link>
-              </li>
+              {isAuthenticated && (
+                <>
+                  <li>
+                    <Link
+                      href={`/profile`}
+                      onClick={() => {
+                        closeSideMenu();
+                      }}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/orders`}
+                      onClick={() => {
+                        closeSideMenu();
+                      }}
+                    >
+                      Orders
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/`}
+                      onClick={() => {
+                        logout();
+                        closeSideMenu();
+                      }}
+                    >
+                      Log Out
+                    </Link>
+                  </li>
+                </>
+              )}
+
               {!isAuthenticated && (
                 <li>
                   <Link
@@ -55,28 +75,19 @@ export const Sidebar = () => {
                   </Link>
                 </li>
               )}
-              {isAuthenticated && (
-                <li>
-                  <Link
-                    href={`/`}
-                    onClick={() => {
-                      logout();
-                      closeSideMenu();
-                    }}
-                  >
-                    Log Out
-                  </Link>
-                </li>
-              )}
             </ul>
-            <div className="w-full h-px bg-black my-10" />
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-yellow-300 rounded-full" />
-              <p>Admin panel</p>
-            </div>
-            <Link href={`/`}>Products</Link>
-            <Link href={`/`}>Orders</Link>
-            <Link href={`/`}>Users</Link>
+            {isAdmin && (
+              <>
+                <div className="w-full h-px bg-black my-10" />
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-yellow-300 rounded-full" />
+                  <p>Admin panel</p>
+                </div>
+                <Link href={`/`}>Products</Link>
+                <Link href={`/`}>Orders</Link>
+                <Link href={`/`}>Users</Link>
+              </>
+            )}
           </nav>
         </div>
       </>
