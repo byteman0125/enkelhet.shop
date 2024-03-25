@@ -31,14 +31,14 @@ export const LogInForm = () => {
           type="email"
           placeholder="Email"
           name="email"
-          className="border border-black p-3"
+          className="border border-black p-3 outline-none"
         />
         <div className="w-full flex items-center relative">
           <input
             type={visible ? 'text' : 'password'}
             placeholder="Password"
             name="password"
-            className="w-full  border border-black p-3"
+            className="w-full  border border-black p-3 outline-none"
           />
           <button
             className="absolute right-3 mt-auto mb-auto top-0 bottom-0"
