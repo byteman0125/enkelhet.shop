@@ -1,6 +1,6 @@
 'use client';
 
-import { registerUser } from '@/actions';
+import { login, registerUser } from '@/actions';
 import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -31,7 +31,8 @@ export const RegisterForm = () => {
       return;
     }
 
-    console.log({ res });
+    await login(email.toLowerCase(), password);
+    window.location.replace('/');
   };
 
   const requireError =
