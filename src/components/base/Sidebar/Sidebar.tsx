@@ -3,12 +3,13 @@ import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { sidebarItems } from './sidebarItems';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
   const { data: session } = useSession();
-  console.log(session);
+
+  const isAuthenticated = !!session?.user;
+
   return (
     isSidemenuOpen && (
       <>
@@ -21,20 +22,52 @@ export const Sidebar = () => {
             <button onClick={closeSideMenu}>CLOSE</button>
           </div>
           <nav className="p-6 flex flex-col gap-5">
-            <ul className="flex flex-col gap-1">
-              {sidebarItems.map(({ label, url }) => (
-                <li key={label}>
+            <ul className="flex flex-col gap-5">
+              <li>
+                <Link
+                  href={`/profile`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`/orders`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Orders
+                </Link>
+              </li>
+              {!isAuthenticated && (
+                <li>
                   <Link
-                    href={`${url}`}
+                    href={`/auth/login`}
+                    onClick={() => {
+                      closeSideMenu();
+                    }}
+                  >
+                    Log In
+                  </Link>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li>
+                  <Link
+                    href={`/`}
                     onClick={() => {
                       logout();
                       closeSideMenu();
                     }}
                   >
-                    {label}
+                    Log Out
                   </Link>
                 </li>
-              ))}
+              )}
             </ul>
             <div className="w-full h-px bg-black my-10" />
             <div className="flex items-center gap-2">
