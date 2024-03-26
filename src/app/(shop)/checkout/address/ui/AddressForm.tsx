@@ -1,5 +1,5 @@
 'use client';
-import { setUserAddress } from '@/actions';
+import { deleteUserAddress, setUserAddress } from '@/actions';
 import { ICountry } from '@/interfaces';
 import { useAddressStore } from '@/store';
 import { useSession } from 'next-auth/react';
@@ -40,15 +40,12 @@ export const AddressForm = ({ countries }: Props) => {
   }, []);
 
   const onSubmit = (data: FormInputs) => {
-    console.log({ data });
     setAddress(data);
     const { rememberAddress, ...rest } = data;
     if (rememberAddress) {
-      //Server action
-      console.log(session?.user.id);
       setUserAddress(data, session!.user.id);
     } else {
-      //Server action
+      deleteUserAddress(session!.user.id);
     }
   };
 

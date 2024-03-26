@@ -49,7 +49,7 @@ async function main() {
     });
   });
 
-  console.log('Seed ejecutado correctamente');
+  console.log('Seed executed successfully');
 }
 
 (() => {
