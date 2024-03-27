@@ -100,7 +100,7 @@ export const initialData: SeedData = {
         width: 38,
         depth: 38,
       },
-      finish: ['ash', 'oak', 'walnut', 'wenge'],
+      finish: ['ash', 'walnut', 'wenge'],
     },
     {
       description: `La Pepino is a collection of seating variations, built on the repeating pattern of cylindrical cushions, and supported by an organically shaped base. Every piece comes fully upholstered in customisable fabrics, and plays with the different points of contact between cushion and body.`,
@@ -151,7 +151,7 @@ export const initialData: SeedData = {
         width: 45,
         depth: 50,
       },
-      finish: ['ash', 'oak', 'walnut', 'wenge'],
+      finish: ['ash', 'oak', 'walnut'],
     },
   ],
 };
