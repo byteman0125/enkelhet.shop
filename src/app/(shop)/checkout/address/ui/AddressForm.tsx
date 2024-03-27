@@ -51,7 +51,6 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
     if (rememberAddress) {
       setUserAddress(data, session!.user.id);
     } else {
-      console.log('first');
       deleteUserAddress(session!.user.id);
     }
   };
