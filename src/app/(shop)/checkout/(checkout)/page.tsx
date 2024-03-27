@@ -1,16 +1,5 @@
-import { initialData } from '@/seed/seed';
 import Link from 'next/link';
-
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-];
+import { ProductsInCart } from '../../cart/ui/ProductsInCart';
 
 export default function CheckoutPage() {
   return (
@@ -18,13 +7,9 @@ export default function CheckoutPage() {
       <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
         <p>CHECKOUT</p>
       </div>
-      <div
-        className={`w-full grid grid-cols-1 xl:grid-cols-2 ${productsInCart.length <= 3 ? 'border-b border-black' : ''} `}
-      >
-        <div className="w-full h-full border-r border-black">
-          {/* {productsInCart.map((product) => (
-            <CartItem product={product} key={product.slug} editable={false} />
-          ))} */}
+      <div className={`w-full grid grid-cols-1 xl:grid-cols-2`}>
+        <div className="w-full h-full">
+          <ProductsInCart editable={false} />
         </div>
         <div
           className={`w-full flex flex-col justify-between sticky top-[137px] h-[calc(100vh-81px-56px)]  border-b border-black`}
