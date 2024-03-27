@@ -43,15 +43,20 @@ export default async function ProductPage({ params }: Props) {
         SHOP / {product.series} / {product.title}
       </div>
       <div className="grid grid-cols-12 h-[calc(100vh-134px)] border-b-4 border-black md:border-none">
-        <div className="col-span-12 xl:col-span-8 border-r border-black gallery relative">
+        <div className="col-span-12 xl:col-span-7 border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px]">
-            <Image src={`/product.webp`} alt="" fill className="object-cover" />
+            <Image
+              src={`/${product.images[0]}`}
+              alt=""
+              fill
+              className="object-cover object-top"
+            />
           </div>
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px] ">
             <ProductExperience />
           </div>
         </div>
-        <div className="col-span-12 xl:col-span-4 h-full flex flex-col justify-between">
+        <div className="col-span-12 xl:col-span-5 h-full flex flex-col justify-between">
           <div className="h-[calc(100vh-134px)] w-full sticky top-[134px] flex flex-col justify-between">
             <div className="pt-4 flex flex-col justify-between h-full">
               <div className="flex flex-col px-4">
