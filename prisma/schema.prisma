@@ -26,44 +26,68 @@ enum Role {
 }
 
 model Measurements {
-  id             String    @id @unique @default(uuid())
-  total_height   Int?
-  seat_height    Int?
-  width          Int?
-  depth          Int?
-  Product        Product[]
+  id           String    @id @unique @default(uuid())
+  total_height Int?
+  seat_height  Int?
+  width        Int?
+  depth        Int?
+  Product      Product[]
 }
 
 model Product {
-  id              String       @id @unique @default(uuid())
-  title           String
-  description     String
-  inStock         Int          @default(autoincrement())
-  price           Float
-  slug            String
-  tags            String[]
-  series          Series
-  finish          Finish[]
-  measurements    Measurements @relation(fields: [measurementsId], references: [id])
-  measurementsId  String
-  ProductImage    ProductImage[]
+  id             String         @id @unique @default(uuid())
+  title          String
+  description    String
+  inStock        Int            @default(autoincrement())
+  price          Float
+  slug           String
+  tags           String[]
+  series         Series
+  finish         Finish[]
+  measurements   Measurements   @relation(fields: [measurementsId], references: [id])
+  measurementsId String
+  ProductImage   ProductImage[]
 
   @@index([series])
 }
 
 model ProductImage {
-  id  Int    @id @default(autoincrement())
-  url String
+  id        Int     @id @default(autoincrement())
+  url       String
   product   Product @relation(fields: [productId], references: [id])
   productId String
 }
 
 model User {
-  id              String    @id @default(uuid())
-  name            String 
-  email           String    @unique
-  emailVerified   DateTime?
-  password        String
-  role            Role      @default(user)
-  image           String?
-} 
+  id            String       @id @default(uuid())
+  name          String
+  email         String       @unique
+  emailVerified DateTime?
+  password      String
+  role          Role         @default(user)
+  image         String?
+  UserAddress   UserAddress?
+}
+
+model Country {
+  id          String        @id
+  name        String
+  UserAddress UserAddress[]
+}
+
+model UserAddress {
+  id         String  @id @default(uuid())
+  firstName  String
+  lastName   String
+  address    String
+  address2   String?
+  postalCode String
+  phone      String
+  city       String
+
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}

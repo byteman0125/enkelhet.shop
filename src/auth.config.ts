@@ -13,7 +13,6 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      console.log({ auth });
       const isLoggedIn = !!auth?.user;
       const isOnCheckout = nextUrl.pathname.startsWith('/checkout');
       if (isOnCheckout) {
