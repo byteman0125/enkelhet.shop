@@ -1,6 +1,11 @@
 'use client';
-import { setTransactionId } from '@/actions';
-import { CreateOrderActions, CreateOrderData } from '@paypal/paypal-js';
+import { paypalCheckPayment, setTransactionId } from '@/actions';
+import {
+  CreateOrderActions,
+  CreateOrderData,
+  OnApproveActions,
+  OnApproveData,
+} from '@paypal/paypal-js';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { Loader } from '..';
 
@@ -21,21 +26,26 @@ export const PaypalButton = ({ orderId, amount }: Props) => {
       intent: 'CAPTURE',
       purchase_units: [
         {
-          //invoice_id: orderId,
+          invoice_id: orderId,
           amount: {
-            value: `${rountedAmount}`,
             currency_code: 'USD',
+            value: `${rountedAmount}`,
           },
         },
       ],
     });
 
-    const { ok, message } = await setTransactionId(orderId, transactionId);
+    const { ok } = await setTransactionId(orderId, transactionId);
     if (!ok) {
-      throw new Error(`${message}`);
+      throw new Error('Order update failed');
     }
 
     return transactionId;
+  };
+  const onApprove = async (data: OnApproveData, actions: OnApproveActions) => {
+    const details = await actions.order?.capture();
+    if (!details) return;
+    await paypalCheckPayment(details.id!);
   };
 
   return isPending ? (
@@ -47,6 +57,7 @@ export const PaypalButton = ({ orderId, amount }: Props) => {
       <PayPalButtons
         style={{ disableMaxWidth: true }}
         createOrder={createOrder}
+        onApprove={onApprove}
       />
     </div>
   );

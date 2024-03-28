@@ -15,7 +15,6 @@ export const setTransactionId = async (
         transactionId: transactionId,
       },
     });
-    console.log({ order });
     if (!order) {
       return {
         ok: false,
