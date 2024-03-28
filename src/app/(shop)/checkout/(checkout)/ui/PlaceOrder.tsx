@@ -1,5 +1,6 @@
 'use client';
 
+import { placeOrder } from '@/actions';
 import { useAddressStore, useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import { useEffect, useState } from 'react';
@@ -20,10 +21,14 @@ export const PlaceOrder = () => {
   const onPlaceOrder = async () => {
     setIsPlacingOrder(true);
     const productsToOrder = cart.map((product) => ({
-      product: product.id,
+      productId: product.id,
       quantity: product.quantity,
       finish: product.finish,
     }));
+
+    const res = await placeOrder(productsToOrder, address);
+
+    console.log(res);
 
     setIsPlacingOrder(false);
   };
