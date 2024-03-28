@@ -33,7 +33,7 @@ export const placeOrder = async (
     },
   });
 
-  const itemsinOrder = productIds.reduce((count, p) => count + p.quantity, 0);
+  const itemsInOrder = productIds.reduce((count, p) => count + p.quantity, 0);
   const { subTotal, tax, total } = productIds.reduce(
     (totals, item) => {
       const productQuantity = item.quantity;
@@ -51,6 +51,83 @@ export const placeOrder = async (
     },
     { subTotal: 0, tax: 0, total: 0 }
   );
+  try {
+    const prismaTx = await prisma.$transaction(async (tx) => {
+      const updatedProductsPromises = products.map((product) => {
+        const productQuantity = productIds
+          .filter((p) => p.productId === product.id)
+          .reduce((acc, item) => item.quantity + acc, 0);
 
-  console.log({ subTotal, total, tax });
+        if (productQuantity === 0) {
+          throw new Error(`${product.id} has no quantity defined`);
+        }
+
+        return tx.product.update({
+          where: { id: product.id },
+          data: {
+            inStock: {
+              decrement: productQuantity,
+            },
+          },
+        });
+      });
+
+      const updatedProducts = await Promise.all(updatedProductsPromises);
+
+      updatedProducts.forEach((product) => {
+        if (product.inStock < 0) {
+          throw new Error(`${product.title} has no stock available`);
+        }
+      });
+
+      const order = await tx.order.create({
+        data: {
+          userId: userId,
+          itemsInOrder: itemsInOrder,
+          subTotal: subTotal,
+          tax: tax,
+          total: total,
+
+          OrderItem: {
+            createMany: {
+              data: productIds.map((p) => ({
+                quantity: p.quantity,
+                finsh: p.finish,
+                productId: p.productId,
+                price:
+                  products.find((product) => product.id === p.productId)
+                    ?.price ?? 0,
+              })),
+            },
+          },
+        },
+      });
+
+      const { country, ...restAddress } = address;
+      const orderAddress = await tx.orderAddress.create({
+        data: {
+          ...restAddress,
+          countryId: country,
+          orderId: order.id,
+        },
+      });
+
+      return {
+        updatedProducts: updatedProducts,
+        order: order,
+        orderAddress: orderAddress,
+      };
+    });
+
+    return {
+      ok: true,
+      order: prismaTx.order,
+      prismaTx: prismaTx,
+    };
+  } catch (error: any) {
+    return {
+      ok: false,
+      message: error?.message,
+    };
+  }
 };
