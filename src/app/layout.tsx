@@ -1,4 +1,4 @@
-import { Provider } from '@/components';
+import { Providers } from '@/components';
 import { fira_mono, inter } from '@/config/fonts';
 import type { Metadata } from 'next';
 import './globals.css';
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fira_mono.variable} ${inter.variable} font-mono`}>
-        <Provider>{children}</Provider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

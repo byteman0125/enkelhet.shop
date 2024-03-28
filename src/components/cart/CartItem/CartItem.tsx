@@ -66,7 +66,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
             )}
           </div>
 
-          <p className="p-4">{product.price}€</p>
+          <p className="p-4">{currencyFormat(product.price)}</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,6 @@ import Link from 'next/link';
 export default async function OrdersPage() {
   const { ok, orders = [] } = await getOrderByUser();
 
-  console.log(orders);
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
