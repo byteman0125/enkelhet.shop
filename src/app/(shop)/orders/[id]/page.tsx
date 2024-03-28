@@ -12,7 +12,6 @@ interface Props {
 export default async function OrderPage({ params }: Props) {
   const { id } = params;
   const { ok, order } = await getOrderById(id);
-
   if (!ok) redirect('/');
 
   return (
@@ -101,9 +100,7 @@ export default async function OrderPage({ params }: Props) {
               </div>
             </div>
           ) : (
-            <div className="w-full py-4 px-2 md:px-4 xl:px-6">
-              <PaypalButton />
-            </div>
+            <PaypalButton />
           )}
         </div>
       </div>
