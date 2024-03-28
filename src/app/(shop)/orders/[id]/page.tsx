@@ -90,18 +90,21 @@ export default async function OrderPage({ params }: Props) {
               </div>
             </div>
           </div>
-
-          <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 gap-4">
-            {/*
-            <div
-              className={`flex items-center justify-center col-span-2 md:col-span-3 w-full ${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-4 py-4 text-sm md:text-base text-black`}
-            >
-              {order!.isPaid ? 'The order is already paid' : 'Pending payment'}
-            </div>*/}
-          </div>
-          <div className="w-full py-4 px-2 md:px-4 xl:px-6">
-            <PaypalButton />
-          </div>
+          {order!.isPaid ? (
+            <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 gap-4">
+              <div
+                className={`flex items-center justify-center col-span-2 md:col-span-3 w-full ${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-4 py-4 text-sm md:text-base text-black`}
+              >
+                {order!.isPaid
+                  ? 'The order is already paid'
+                  : 'Pending payment'}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full py-4 px-2 md:px-4 xl:px-6">
+              <PaypalButton />
+            </div>
+          )}
         </div>
       </div>
     </>
