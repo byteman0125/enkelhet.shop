@@ -2,6 +2,7 @@ export const revalidate = 604800; //7days
 
 import { getProductBySlug } from '@/actions';
 import { ProductExperience, ProductStock } from '@/components';
+import { currencyFormat } from '@/utils';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -64,7 +65,7 @@ export default async function ProductPage({ params }: Props) {
                   <h1 className="font-bold">{product.title}</h1>
                   <ProductStock slug={product.slug} />
                 </div>
-                <span>{product.price}€</span>
+                <span>{currencyFormat(product.price)}</span>
               </div>
               <div className="flex flex-col md:grid grid-cols-6 px-4">
                 <p className="col-span-2">DESCRIPTION</p>
