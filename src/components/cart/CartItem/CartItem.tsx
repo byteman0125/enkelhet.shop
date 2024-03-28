@@ -1,3 +1,4 @@
+'use client';
 import { QuantityProductSelector } from '@/app/(shop)/products/ui/QuantityProductSelector';
 import { ICartProduct } from '@/interfaces';
 import { useCartStore } from '@/store';
