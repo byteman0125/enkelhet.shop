@@ -7,6 +7,7 @@ export * from './country/get-countries';
 export * from './order/get-order-by-id';
 export * from './order/get-order-by-user';
 export * from './order/place-order';
+export * from './payments/set-transaction-id';
 export * from './products/get-product-by-slug';
 export * from './products/get-stock-by-slug';
 export * from './products/product-pagination';

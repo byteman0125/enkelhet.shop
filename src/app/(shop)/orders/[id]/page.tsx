@@ -40,7 +40,7 @@ export default async function OrderPage({ params }: Props) {
               <CartItem
                 product={product}
                 editable={false}
-                key={item.product.id}
+                key={`${item.product.id + item.finsh}`}
               />
             );
           })}
@@ -100,7 +100,7 @@ export default async function OrderPage({ params }: Props) {
               </div>
             </div>
           ) : (
-            <PaypalButton />
+            <PaypalButton amount={order!.total} orderId={order!.id} />
           )}
         </div>
       </div>
