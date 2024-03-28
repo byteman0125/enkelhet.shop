@@ -3,16 +3,20 @@
 import { placeOrder } from '@/actions';
 import { useAddressStore, useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const PlaceOrder = () => {
+  const router = useRouter();
   const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const { address } = useAddressStore();
   const { total, subTotal, tax, itemsInCart } = useCartStore((state) =>
     state.getSummaryData()
   );
   const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   useEffect(() => {
     setLoaded(true);
@@ -27,10 +31,18 @@ export const PlaceOrder = () => {
     }));
 
     const res = await placeOrder(productsToOrder, address);
+    if (!res.ok) {
+      setIsPlacingOrder(false);
+      setErrorMessage(res.message);
 
-    console.log(res);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+      return;
+    }
 
-    setIsPlacingOrder(false);
+    clearCart();
+    router.replace(`/orders/${res.order?.id}`);
   };
 
   if (!loaded) return <></>;
@@ -84,6 +96,12 @@ export const PlaceOrder = () => {
           Place order
         </button>
       </div>
+
+      {errorMessage && (
+        <div className="absolute bottom-14 bg-red-400 w-full flex items-center justify-center">
+          {errorMessage}
+        </div>
+      )}
     </>
   );
 };
