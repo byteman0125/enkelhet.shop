@@ -48,8 +48,8 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
   }, []);
 
   const onSubmit = (data: FormInputs) => {
-    setAddress(data);
     const { rememberAddress, ...rest } = data;
+    setAddress(rest);
     if (rememberAddress) {
       setUserAddress(data, session!.user.id);
     } else {

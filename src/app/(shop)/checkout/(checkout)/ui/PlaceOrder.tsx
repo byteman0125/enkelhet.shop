@@ -6,14 +6,27 @@ import { useEffect, useState } from 'react';
 
 export const PlaceOrder = () => {
   const [loaded, setLoaded] = useState(false);
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const { address } = useAddressStore();
   const { total, subTotal, tax, itemsInCart } = useCartStore((state) =>
     state.getSummaryData()
   );
+  const cart = useCartStore((state) => state.cart);
 
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  const onPlaceOrder = async () => {
+    setIsPlacingOrder(true);
+    const productsToOrder = cart.map((product) => ({
+      product: product.id,
+      quantity: product.quantity,
+      finish: product.finish,
+    }));
+
+    setIsPlacingOrder(false);
+  };
 
   if (!loaded) return <></>;
 
@@ -56,8 +69,13 @@ export const PlaceOrder = () => {
           </div>
         </div>
       </div>
+
       <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 gap-4">
-        <button className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-sm md:text-base text-white">
+        <button
+          disabled={isPlacingOrder}
+          className={`flex items-center justify-center col-span-2 md:col-span-3 w-full  ${isPlacingOrder ? 'bg-gray-200' : 'bg-black'} px-4 py-4 text-sm md:text-base text-white`}
+          onClick={onPlaceOrder}
+        >
           Place order
         </button>
       </div>
