@@ -38,7 +38,13 @@ export default async function OrderPage({ params }: Props) {
               quantity: item.quantity,
               image: item.product.ProductImage[0].url,
             };
-            return <CartItem product={product} editable={false} />;
+            return (
+              <CartItem
+                product={product}
+                editable={false}
+                key={item.product.id}
+              />
+            );
           })}
         </div>
         <div
