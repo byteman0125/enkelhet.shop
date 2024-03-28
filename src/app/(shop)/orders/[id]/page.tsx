@@ -1,5 +1,8 @@
-import { initialData } from '@/seed/seed';
+import { getOrderById } from '@/actions';
+import { CartItem } from '@/components';
+import { currencyFormat } from '@/utils';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 interface Props {
   params: {
@@ -7,31 +10,42 @@ interface Props {
   };
 }
 
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[0],
-];
-
-export default function OrderPage({ params }: Props) {
+export default async function OrderPage({ params }: Props) {
   const { id } = params;
+  const { ok, order } = await getOrderById(id);
+
+  if (!ok) redirect('/');
+
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
-        <p>ORDER - {id}</p>
-        <div className="bg-green-300 px-1">The order is already paid</div>
+        <p>ORDER - {id.split('-').at(-1)}</p>
+        <div
+          className={`${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-1`}
+        >
+          {order!.isPaid ? 'The order is already paid' : 'Pending payment'}
+        </div>
       </div>
       <div className={`w-full grid grid-cols-1 xl:grid-cols-2 `}>
         <div className="w-full h-full border-r border-black">
-          {/* {productsInCart.map((product) => (
-            <CartItem product={product} key={product.slug} editable={false} />
-          ))} */}
+          {order!.OrderItem.map((item) => {
+            const product = {
+              id: item.product.id,
+              title: item.product.title,
+              price: item.price,
+              finish: item.finsh,
+              slug: item.product.slug,
+              quantity: item.quantity,
+              image: item.product.ProductImage[0].url,
+            };
+            return (
+              <CartItem
+                product={product}
+                editable={false}
+                key={item.product.id}
+              />
+            );
+          })}
         </div>
         <div
           className={`w-full sticky top-[137px] h-[calc(100vh-81px-56px)] flex flex-col justify-between`}
@@ -40,11 +54,14 @@ export default function OrderPage({ params }: Props) {
             <div>
               <h1 className="text-xl  font-bold">Shipping address</h1>
               <div>
-                <p>Tomas Ferreras</p>
-                <p>10825 Heritage Hills Dr</p>
-                <p>Las Vegas</p>
-                <p>ZIP 88901</p>
-                <p>555-0179</p>
+                <p>
+                  {order!.OrderAddress!.firstName}{' '}
+                  {order!.OrderAddress!.lastName}
+                </p>
+                <p>{order!.OrderAddress!.address}</p>
+                <p>{order!.OrderAddress!.city}</p>
+                <p>ZIP {order!.OrderAddress!.postalCode}</p>
+                <p>{order!.OrderAddress!.phone}</p>
               </div>
             </div>
 
@@ -52,17 +69,24 @@ export default function OrderPage({ params }: Props) {
               <h1 className="text-xl  font-bold">Order summary</h1>
               <div className="grid grid-cols-2">
                 <span>No. products</span>
-                <span className="text-right">3 items</span>
+                <span className="text-right">
+                  {order!.itemsInOrder}{' '}
+                  {order!.itemsInOrder === 1 ? 'item' : 'items'}
+                </span>
 
                 <span>Subtotal</span>
-                <span className="text-right">3560€</span>
+                <span className="text-right">
+                  {currencyFormat(order!.subTotal)}
+                </span>
 
                 <span>Tax (15%)</span>
-                <span className="text-right">240€</span>
+                <span className="text-right">{currencyFormat(order!.tax)}</span>
 
                 <div className="flex items-center justify-between w-full border-t border-black col-span-2 mt-5 pt-2">
                   <span className="text-xl font-bold">Total</span>
-                  <span className="text-right font-bold">240€</span>
+                  <span className="text-right font-bold">
+                    {currencyFormat(order!.total)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -71,9 +95,9 @@ export default function OrderPage({ params }: Props) {
           <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 gap-4">
             <Link
               href={`/orders/abc`}
-              className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-green-300 px-4 py-4 text-sm md:text-base text-black"
+              className={`flex items-center justify-center col-span-2 md:col-span-3 w-full ${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-4 py-4 text-sm md:text-base text-black`}
             >
-              The order is already paid
+              {order!.isPaid ? 'The order is already paid' : 'Pending payment'}
             </Link>
           </div>
         </div>

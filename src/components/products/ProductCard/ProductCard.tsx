@@ -25,7 +25,8 @@ export const ProductCard = ({ product }: Props) => {
                 <Image
                   src={`/woods/${finishItem}.jpg`}
                   alt={`${finishItem} wood`}
-                  fill
+                  width={16}
+                  height={16}
                   className="rounded-full h-4 w-4"
                 />
               </div>

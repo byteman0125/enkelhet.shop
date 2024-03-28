@@ -4,7 +4,11 @@ import { useCartStore } from '@/store';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export const ProductsInCart = () => {
+interface Props {
+  editable?: boolean;
+}
+
+export const ProductsInCart = ({ editable = true }: Props) => {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     setLoaded(true);
@@ -16,6 +20,7 @@ export const ProductsInCart = () => {
       {loaded && productsInCart.length > 0 ? (
         productsInCart.map((product) => (
           <CartItem
+            editable={editable}
             product={product}
             key={`${product.slug}-${product.finish}`}
           />
