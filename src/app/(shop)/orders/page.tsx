@@ -31,7 +31,7 @@ export default async function OrdersPage() {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr className="bg-white border-b border-black">
+              <tr className="bg-white border-b border-black" key={order.id}>
                 <th
                   scope="row"
                   className="px-6 py-4 whitespace-nowrap font-normal"
