@@ -1,7 +1,6 @@
 import { getOrderById } from '@/actions';
-import { CartItem } from '@/components';
+import { CartItem, PaypalButton } from '@/components';
 import { currencyFormat } from '@/utils';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 export default async function OrderPage({ params }: Props) {
   const { id } = params;
   const { ok, order } = await getOrderById(id);
-
   if (!ok) redirect('/');
 
   return (
@@ -42,13 +40,13 @@ export default async function OrderPage({ params }: Props) {
               <CartItem
                 product={product}
                 editable={false}
-                key={item.product.id}
+                key={`${item.product.id + item.finsh}`}
               />
             );
           })}
         </div>
         <div
-          className={`w-full sticky top-[137px] h-[calc(100vh-81px-56px)] flex flex-col justify-between`}
+          className={`w-full sticky top-[137px] h-full min-h-[calc(100vh-81px-56px)] flex flex-col justify-between`}
         >
           <div className="flex flex-col gap-5 p-8">
             <div>
@@ -91,15 +89,19 @@ export default async function OrderPage({ params }: Props) {
               </div>
             </div>
           </div>
-
-          <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 gap-4">
-            <Link
-              href={`/orders/abc`}
-              className={`flex items-center justify-center col-span-2 md:col-span-3 w-full ${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-4 py-4 text-sm md:text-base text-black`}
-            >
-              {order!.isPaid ? 'The order is already paid' : 'Pending payment'}
-            </Link>
-          </div>
+          {order!.isPaid ? (
+            <div className="w-full flex flex-col md:flex-row md:items-center justify-between pt-8 gap-4">
+              <div
+                className={`flex items-center justify-center col-span-2 md:col-span-3 w-full ${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-4 py-4 text-sm md:text-base text-black`}
+              >
+                {order!.isPaid
+                  ? 'The order is already paid'
+                  : 'Pending payment'}
+              </div>
+            </div>
+          ) : (
+            <PaypalButton amount={order!.total} orderId={order!.id} />
+          )}
         </div>
       </div>
     </>

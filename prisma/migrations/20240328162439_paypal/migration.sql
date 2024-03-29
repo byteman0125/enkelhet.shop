@@ -87,11 +87,12 @@ CREATE TABLE "Order" (
     "tax" DOUBLE PRECISION NOT NULL,
     "total" DOUBLE PRECISION NOT NULL,
     "itemsInOrder" INTEGER NOT NULL,
-    "isPayed" BOOLEAN NOT NULL,
+    "isPaid" BOOLEAN NOT NULL DEFAULT false,
     "paidAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
+    "transactionId" TEXT,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
