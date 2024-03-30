@@ -18,7 +18,7 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
-        <p>ORDERS</p>
+        <p>ORDERS - admin</p>
       </div>
       <div className="relative overflow-x-auto mb-12">
         <table className="w-full text-left rtl:text-right">

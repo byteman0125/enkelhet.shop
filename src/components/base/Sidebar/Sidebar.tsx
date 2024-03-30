@@ -84,8 +84,22 @@ export const Sidebar = () => {
                   <p>Admin panel</p>
                 </div>
                 <Link href={`/`}>Products</Link>
-                <Link href={`/admin/orders`}>Orders</Link>
-                <Link href={`/`}>Users</Link>
+                <Link
+                  href={`/admin/orders`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Orders
+                </Link>
+                <Link
+                  href={`/admin/users`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Users
+                </Link>
               </>
             )}
           </nav>
