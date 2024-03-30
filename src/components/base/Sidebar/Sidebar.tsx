@@ -84,7 +84,7 @@ export const Sidebar = () => {
                   <p>Admin panel</p>
                 </div>
                 <Link href={`/`}>Products</Link>
-                <Link href={`/`}>Orders</Link>
+                <Link href={`/admin/orders`}>Orders</Link>
                 <Link href={`/`}>Users</Link>
               </>
             )}
