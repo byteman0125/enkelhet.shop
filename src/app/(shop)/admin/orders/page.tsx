@@ -25,7 +25,7 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
           <thead className="uppercase  py-4 px-2 md:px-4 xl:px-6 border-b border-black bg-black text-white">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Product ID
+                Order ID
               </th>
               <th scope="col" className="px-6 py-3">
                 Full Name

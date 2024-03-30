@@ -51,7 +51,7 @@ export const Pagination = ({ totalPages }: Props) => {
             <Link
               href={createPageUrl(page)}
               key={page + '-' + i}
-              className={`hover:bg-gray-200 h-full py-2 px-4 ${currentPage === page ? 'bg-black text-white' : ''}`}
+              className={`hover:bg-gray-200 hover:text-black h-full py-2 px-4 ${currentPage === page ? 'bg-black text-white' : ''}`}
             >
               {page}
             </Link>
