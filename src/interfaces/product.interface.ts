@@ -30,3 +30,7 @@ export interface ICartProduct {
   finish: FinishType;
   image: string;
 }
+export interface IProductImage {
+  id: number;
+  url: string;
+}
