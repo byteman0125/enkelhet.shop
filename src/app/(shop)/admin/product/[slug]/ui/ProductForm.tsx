@@ -1,5 +1,6 @@
 'use client';
 
+import { createUpdateProduct } from '@/actions';
 import { finishes } from '@/constants';
 import { FinishType, IProduct, IProductImage } from '@/interfaces';
 import Image from 'next/image';
@@ -46,14 +47,24 @@ export const ProductForm = ({ product }: Props) => {
 
   const onSizeChanged = async (finish: FinishType) => {
     const finishes = new Set(getValues('finish'));
-
     finishes.has(finish) ? finishes.delete(finish) : finishes.add(finish);
-
     setValue('finish', Array.from(finishes));
   };
 
   const onSubmit = async (data: IFormInputs) => {
-    console.log({ data });
+    const formData = new FormData();
+    const { ...productToSave } = data;
+    formData.append('id', product.id ?? '');
+    formData.append('title', productToSave.title);
+    formData.append('slug', productToSave.slug);
+    formData.append('description', productToSave.description);
+    formData.append('price', productToSave.price.toString());
+    formData.append('inStock', productToSave.inStock.toString());
+    formData.append('finish', productToSave.finish.toString());
+    formData.append('tags', productToSave.tags);
+    formData.append('series', productToSave.series);
+
+    const { ok } = await createUpdateProduct(formData);
   };
 
   return (
@@ -160,33 +171,39 @@ export const ProductForm = ({ product }: Props) => {
             {buttonTitle}
           </button>
         </div>
-        <div>
-          <input
-            className="appearance-none w-full border-b border-black  cursor-pointer file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3"
-            id="large_size"
-            type="file"
-            accept="image/png, image/jpeg"
-            multiple
-          />
+        <div className=" flex flex-col">
+          <div className="flex-1 border-b border-black bg-blue-400">
+            {' '}
+            viewer
+          </div>
+          <div className="flex flex-col justify-end">
+            <input
+              className="appearance-none w-full border-b border-black  cursor-pointer file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3"
+              id="large_size"
+              type="file"
+              accept="image/png, image/jpeg"
+              multiple
+            />
 
-          <div className="flex border-b border-black">
-            {product.ProductImage?.map((image) => (
-              <div key={image.id} className="relative">
-                <Image
-                  src={`/${image.url}`}
-                  alt={`${product.title} wood`}
-                  className="object-cover p-4 h-[200px] w-[200px] aspect-square"
-                  width={300}
-                  height={300}
-                />
-                <button
-                  className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
-                  onClick={() => console.log(image.id, image.url)}
-                >
-                  [x]
-                </button>
-              </div>
-            ))}
+            <div className="flex border-b border-black">
+              {product.ProductImage?.map((image) => (
+                <div key={image.id} className="relative">
+                  <Image
+                    src={`/${image.url}`}
+                    alt={`${product.title} wood`}
+                    className="object-cover p-4 h-[200px] w-[200px] aspect-square"
+                    width={300}
+                    height={300}
+                  />
+                  <button
+                    className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
+                    onClick={() => console.log(image.id, image.url)}
+                  >
+                    [x]
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </form>
