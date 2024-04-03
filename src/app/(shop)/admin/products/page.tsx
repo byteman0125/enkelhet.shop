@@ -23,7 +23,12 @@ export default async function AdminProductsPage({ searchParams }: Props) {
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
         <p>PRODUCTS - admin</p>
-        <button className="bg-black text-white px-4 py-1">new product +</button>
+        <Link
+          href={`/admin/product/new`}
+          className="bg-black text-white px-4 py-1"
+        >
+          new product +
+        </Link>
       </div>
       <div className="relative overflow-x-auto">
         <table className="w-full text-left rtl:text-right">

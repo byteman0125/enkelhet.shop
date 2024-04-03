@@ -20,6 +20,7 @@ const productSchema = z.object({
   series: z.nativeEnum(Series),
   finish: z.coerce.string().transform((val) => val.split(',')),
   tags: z.string(),
+  measurements: z.any(),
 });
 
 export const createUpdateProduct = async (formData: FormData) => {
@@ -33,7 +34,6 @@ export const createUpdateProduct = async (formData: FormData) => {
   }
 
   const product = parsedProduct.data;
-  console.log(product);
   product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
   const { id, ...rest } = product;
 
@@ -42,6 +42,10 @@ export const createUpdateProduct = async (formData: FormData) => {
     const tagsArray = rest.tags
       .split(',')
       .map((tag) => tag.trim().toLowerCase());
+
+    const measurementData = JSON.parse(rest.measurements, (key, value) => {
+      return isNaN(value) ? value : parseFloat(value);
+    });
 
     if (id) {
       product = await prisma.product.update({
@@ -56,8 +60,26 @@ export const createUpdateProduct = async (formData: FormData) => {
           },
         },
       });
-      console.log({ updatedProduct: product });
     } else {
+      let measurement = await prisma.measurements.create({
+        data: {
+          ...measurementData,
+        },
+      });
+      product = await prisma.product.create({
+        data: {
+          ...rest,
+          finish: rest.finish as FinishType[],
+          tags: {
+            set: tagsArray,
+          },
+          measurements: {
+            connect: { id: measurement ? measurement.id : undefined },
+          },
+        },
+      });
+
+      console.log({ product });
     }
   });
 

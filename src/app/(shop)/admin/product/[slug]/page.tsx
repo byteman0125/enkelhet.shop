@@ -12,11 +12,12 @@ export default async function AdminProductPage({ params }: Props) {
   const { slug } = params;
   const product = await getProductBySlug(slug);
 
-  if (!product) {
+  if (!product && slug !== 'new') {
     redirect('/admin/products');
   }
 
-  const title = slug === 'new' ? 'New product' : `Editing ${product.title}`;
+  const title =
+    slug === 'new' ? 'New product' : `Editing ${product?.title ?? 'product'}`;
 
   return (
     <>
@@ -24,7 +25,10 @@ export default async function AdminProductPage({ params }: Props) {
         <p>{title}</p>
       </div>
 
-      <ProductForm product={product} />
+      <ProductForm
+        product={product ?? {}}
+        isNew={slug === 'new' ? true : false}
+      />
     </>
   );
 }

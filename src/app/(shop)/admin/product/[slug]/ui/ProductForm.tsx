@@ -2,6 +2,8 @@
 
 import { createUpdateProduct } from '@/actions';
 import { ProductModel } from '@/components';
+import { Input } from '@/components/base/FormInputs/Input';
+import { TextArea } from '@/components/base/FormInputs/TextArea';
 import { finishes } from '@/constants';
 import { FinishType, IProduct, IProductImage } from '@/interfaces';
 import { Environment, OrbitControls } from '@react-three/drei';
@@ -10,7 +12,15 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 
 interface Props {
-  product: IProduct & { ProductImage?: IProductImage[] };
+  product: Partial<IProduct> & { ProductImage?: IProductImage[] };
+  isNew: boolean;
+}
+
+interface Measurements {
+  total_height: number;
+  seat_height: number;
+  width: number;
+  depth: number;
 }
 
 interface IFormInputs {
@@ -23,10 +33,11 @@ interface IFormInputs {
   tags: string;
   series: 'lounge' | 'alabaster' | 'capsule';
   seriesId: string;
+  measurements: Measurements;
   //TODO: images
 }
 
-export const ProductForm = ({ product }: Props) => {
+export const ProductForm = ({ product, isNew }: Props) => {
   const {
     register,
     handleSubmit,
@@ -37,16 +48,20 @@ export const ProductForm = ({ product }: Props) => {
   } = useForm<IFormInputs>({
     defaultValues: {
       ...product,
-      tags: product.tags.join(', '),
+      tags: product.tags?.join(', '),
       finish: product.finish ?? [],
+      measurements: {
+        depth: product.measurements?.depth ?? 0,
+        seat_height: product.measurements?.seat_height ?? 0,
+        width: product.measurements?.width ?? 0,
+        total_height: product.measurements?.total_height ?? 0,
+      },
     },
   });
 
   watch('finish');
 
-  const buttonTitle = !product
-    ? 'Create new product'
-    : `Update ${product.title}`;
+  const buttonTitle = isNew ? 'Create new product' : `Update ${product.title}`;
 
   const onSizeChanged = async (finish: FinishType) => {
     const finishes = new Set(getValues('finish'));
@@ -57,7 +72,9 @@ export const ProductForm = ({ product }: Props) => {
   const onSubmit = async (data: IFormInputs) => {
     const formData = new FormData();
     const { ...productToSave } = data;
-    formData.append('id', product.id ?? '');
+    if (product.id) {
+      formData.append('id', product.id ?? '');
+    }
     formData.append('title', productToSave.title);
     formData.append('slug', productToSave.slug);
     formData.append('description', productToSave.description);
@@ -66,8 +83,10 @@ export const ProductForm = ({ product }: Props) => {
     formData.append('finish', productToSave.finish.toString());
     formData.append('tags', productToSave.tags);
     formData.append('series', productToSave.series);
+    formData.append('measurements', JSON.stringify(data.measurements));
 
     const { ok } = await createUpdateProduct(formData);
+    console.log(ok);
   };
 
   return (
@@ -78,35 +97,40 @@ export const ProductForm = ({ product }: Props) => {
       >
         <div className="w-full h-full border-r border-black flex flex-col justify-between">
           <div>
-            <input
+            <Input
+              label="Title"
+              id="title"
               type="text"
-              placeholder="Title"
-              className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full"
-              {...register('title', { required: true })}
+              formName="title"
+              register={register}
             />
-            <input
+            <Input
+              label="Slug"
+              id="slug"
               type="text"
-              placeholder="Slug"
-              className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full"
-              {...register('slug', { required: true })}
+              formName="slug"
+              register={register}
             />
-            <textarea
-              rows={8}
-              placeholder="Description"
-              className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full resize-none"
-              {...register('description', { required: true })}
+            <TextArea
+              label="Description"
+              id="description"
+              type="text"
+              formName="description"
+              register={register}
             />
-            <input
+            <Input
+              label="Price"
+              id="price"
               type="number"
-              placeholder="Price"
-              className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full appearance-none"
-              {...register('price', { required: true, min: 0 })}
+              formName="price"
+              register={register}
             />
-            <input
+            <Input
+              label="Tags"
+              id="tags"
               type="text"
-              placeholder="Tags"
-              className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full"
-              {...register('tags', { required: true })}
+              formName="tags"
+              register={register}
             />
             <div className="flex justify-between w-full h-[49px] border-b border-black">
               {finishes.map((finishItem) => (
@@ -119,7 +143,7 @@ export const ProductForm = ({ product }: Props) => {
                     className={`flex items-center gap-2 px-2 md:px-4 xl:px-6 py-3 ${getValues('finish').includes(finishItem) ? 'bg-black text-white' : 'bg-white text-black'}`}
                   >
                     <div className="flex items-center gap-2">
-                      <p>
+                      <div>
                         {getValues('finish').includes(finishItem) ? (
                           '[x]'
                         ) : (
@@ -144,7 +168,7 @@ export const ProductForm = ({ product }: Props) => {
                             ]
                           </div>
                         )}
-                      </p>
+                      </div>
                       <div className="h-4 w-4 relative" key={finishItem}>
                         <Image
                           src={`/woods/${finishItem}.jpg`}
@@ -160,6 +184,15 @@ export const ProductForm = ({ product }: Props) => {
                 </button>
               ))}
             </div>
+            {isNew && (
+              <Input
+                label="Stock"
+                id="inStock"
+                type="number"
+                formName="inStock"
+                register={register}
+              />
+            )}
             <select
               className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full h-[49px]"
               {...register('series', { required: true })}
@@ -169,6 +202,46 @@ export const ProductForm = ({ product }: Props) => {
               <option>alabaster</option>
               <option>capsule</option>
             </select>
+            <div className="px-2 md:px-4 xl:px-6 py-3 borde-b border-black">
+              <p>Measurements</p>
+
+              <div className="flex items-center gap-3">
+                <p className="whitespace-nowrap w-[250px]">
+                  Total height (cm):{' '}
+                </p>
+                <input
+                  type="number"
+                  className="outline-none w-full"
+                  {...register('measurements.total_height')}
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <p className="whitespace-nowrap w-[250px]">
+                  Seat height (cm):{' '}
+                </p>
+                <input
+                  type="number"
+                  className="outline-none w-full"
+                  {...register('measurements.seat_height')}
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <p className="whitespace-nowrap w-[250px]">Width (cm): </p>
+                <input
+                  type="number"
+                  className="outline-none w-full"
+                  {...register('measurements.width')}
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <p className="whitespace-nowrap w-[250px]">Depth (cm): </p>
+                <input
+                  type="number"
+                  className="outline-none w-full"
+                  {...register('measurements.depth')}
+                />
+              </div>
+            </div>
           </div>
           <button className="w-full p-4 text-white bg-black">
             {buttonTitle}
@@ -202,7 +275,7 @@ export const ProductForm = ({ product }: Props) => {
               multiple
             />
 
-            <div className="flex border-b border-black">
+            <div className="flex border-b border-black ">
               {product.ProductImage?.map((image) => (
                 <div key={image.id} className="relative">
                   <Image
@@ -220,6 +293,9 @@ export const ProductForm = ({ product }: Props) => {
                   </button>
                 </div>
               ))}
+              <div>
+                <div className="p-4 h-[200px] w-[200px]"></div>
+              </div>
             </div>
           </div>
         </div>
