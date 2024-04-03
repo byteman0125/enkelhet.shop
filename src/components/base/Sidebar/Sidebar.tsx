@@ -3,7 +3,6 @@ import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
@@ -11,8 +10,6 @@ export const Sidebar = () => {
 
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
-
-  useEffect(() => {}, []);
 
   return (
     isSidemenuOpen && (

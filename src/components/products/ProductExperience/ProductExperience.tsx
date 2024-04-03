@@ -15,7 +15,7 @@ export const ProductExperience = () => {
   );
 };
 
-const ProductModel = () => {
+export const ProductModel = () => {
   const { nodes, materials }: any = useGLTF('/chair.glb');
   return (
     <group dispose={null} scale={0.05} position={[0, 0, 0]}>
