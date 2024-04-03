@@ -9,6 +9,7 @@ import { FinishType, IProduct, IProductImage } from '@/interfaces';
 import { Environment, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 interface Props {
@@ -38,6 +39,7 @@ interface IFormInputs {
 }
 
 export const ProductForm = ({ product, isNew }: Props) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -85,8 +87,12 @@ export const ProductForm = ({ product, isNew }: Props) => {
     formData.append('series', productToSave.series);
     formData.append('measurements', JSON.stringify(data.measurements));
 
-    const { ok } = await createUpdateProduct(formData);
-    console.log(ok);
+    const { ok, productDB } = await createUpdateProduct(formData);
+    if (!ok) {
+      return;
+    }
+
+    router.replace(`/admin/product/${productDB?.slug}`);
   };
 
   return (

@@ -2,6 +2,7 @@
 import { FinishType } from '@/interfaces';
 import prisma from '@/utils/prisma';
 import { Product, Series } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 const productSchema = z.object({
@@ -35,55 +36,78 @@ export const createUpdateProduct = async (formData: FormData) => {
 
   const product = parsedProduct.data;
   product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
-  const { id, ...rest } = product;
+  const { id, measurements, ...rest } = product;
+  try {
+    const prismaTx = await prisma.$transaction(async (tx) => {
+      let product: Product;
+      const tagsArray = rest.tags
+        .split(',')
+        .map((tag) => tag.trim().toLowerCase());
 
-  const prismaTx = await prisma.$transaction(async (tx) => {
-    let product: Product;
-    const tagsArray = rest.tags
-      .split(',')
-      .map((tag) => tag.trim().toLowerCase());
+      const measurementData = JSON.parse(measurements, (key, value) => {
+        return isNaN(value) ? value : parseFloat(value);
+      });
 
-    const measurementData = JSON.parse(rest.measurements, (key, value) => {
-      return isNaN(value) ? value : parseFloat(value);
+      if (id) {
+        console.log(measurementData);
+        product = await prisma.product.update({
+          where: {
+            id,
+          },
+          data: {
+            ...rest,
+            finish: rest.finish as FinishType[],
+            tags: {
+              set: tagsArray,
+            },
+          },
+        });
+
+        let measurement = await prisma.measurements.update({
+          data: {
+            ...measurementData,
+          },
+          where: {
+            id: product.measurementsId,
+          },
+        });
+        return { productDB: product };
+      } else {
+        let measurement = await prisma.measurements.create({
+          data: {
+            ...measurementData,
+          },
+        });
+        product = await prisma.product.create({
+          data: {
+            ...rest,
+            finish: rest.finish as FinishType[],
+            tags: {
+              set: tagsArray,
+            },
+            measurements: {
+              connect: { id: measurement ? measurement.id : undefined },
+            },
+          },
+        });
+      }
+
+      return { productDB: product };
     });
 
-    if (id) {
-      product = await prisma.product.update({
-        where: {
-          id,
-        },
-        data: {
-          ...rest,
-          finish: rest.finish as FinishType[],
-          tags: {
-            set: tagsArray,
-          },
-        },
-      });
-    } else {
-      let measurement = await prisma.measurements.create({
-        data: {
-          ...measurementData,
-        },
-      });
-      product = await prisma.product.create({
-        data: {
-          ...rest,
-          finish: rest.finish as FinishType[],
-          tags: {
-            set: tagsArray,
-          },
-          measurements: {
-            connect: { id: measurement ? measurement.id : undefined },
-          },
-        },
-      });
+    revalidatePath('/admin/products');
+    revalidatePath(`/admin/product/${product.slug}`);
+    revalidatePath(`/products/${product.slug}`);
 
-      console.log({ product });
-    }
-  });
-
-  return {
-    ok: true,
-  };
+    return {
+      ok: true,
+      productDB: prismaTx.productDB,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: 'item creation failed',
+    };
+  }
 };
