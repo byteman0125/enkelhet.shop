@@ -36,6 +36,7 @@ interface IFormInputs {
   seriesId: string;
   measurements: Measurements;
   //TODO: images
+  images?: FileList;
 }
 
 export const ProductForm = ({ product, isNew }: Props) => {
@@ -58,6 +59,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
         width: product.measurements?.width ?? 0,
         total_height: product.measurements?.total_height ?? 0,
       },
+      images: undefined,
     },
   });
 
@@ -73,7 +75,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
 
   const onSubmit = async (data: IFormInputs) => {
     const formData = new FormData();
-    const { ...productToSave } = data;
+    const { images, ...productToSave } = data;
     if (product.id) {
       formData.append('id', product.id ?? '');
     }
@@ -86,6 +88,12 @@ export const ProductForm = ({ product, isNew }: Props) => {
     formData.append('tags', productToSave.tags);
     formData.append('series', productToSave.series);
     formData.append('measurements', JSON.stringify(data.measurements));
+
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i]);
+      }
+    }
 
     const { ok, productDB } = await createUpdateProduct(formData);
     if (!ok) {
@@ -190,15 +198,13 @@ export const ProductForm = ({ product, isNew }: Props) => {
                 </button>
               ))}
             </div>
-            {isNew && (
-              <Input
-                label="Stock"
-                id="inStock"
-                type="number"
-                formName="inStock"
-                register={register}
-              />
-            )}
+            <Input
+              label="Stock"
+              id="inStock"
+              type="number"
+              formName="inStock"
+              register={register}
+            />
             <select
               className="outline-none border-b border-black px-2 md:px-4 xl:px-6 py-3 w-full h-[49px]"
               {...register('series', { required: true })}
@@ -274,11 +280,12 @@ export const ProductForm = ({ product, isNew }: Props) => {
           </div>
           <div className="flex flex-col justify-end">
             <input
-              className="appearance-none w-full border-b border-black  cursor-pointer file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3"
+              className="appearance-none w-full border-b border-black file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3 cursor-pointer"
               id="large_size"
               type="file"
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpeg, image/avif, image/webp"
               multiple
+              {...register('images')}
             />
 
             <div className="flex border-b border-black ">

@@ -2,8 +2,11 @@
 import { FinishType } from '@/interfaces';
 import prisma from '@/utils/prisma';
 import { Product, Series } from '@prisma/client';
+import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+
+cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
 const productSchema = z.object({
   id: z.string().uuid().optional().nullable(),
@@ -49,7 +52,6 @@ export const createUpdateProduct = async (formData: FormData) => {
       });
 
       if (id) {
-        console.log(measurementData);
         product = await prisma.product.update({
           where: {
             id,
@@ -71,7 +73,6 @@ export const createUpdateProduct = async (formData: FormData) => {
             id: product.measurementsId,
           },
         });
-        return { productDB: product };
       } else {
         let measurement = await prisma.measurements.create({
           data: {
@@ -92,6 +93,11 @@ export const createUpdateProduct = async (formData: FormData) => {
         });
       }
 
+      //TODO: IMAGES
+      if (formData.getAll('images')) {
+        const images = await uploadImages(formData.getAll('images') as File[]);
+      }
+
       return { productDB: product };
     });
 
@@ -109,5 +115,28 @@ export const createUpdateProduct = async (formData: FormData) => {
       ok: false,
       message: 'item creation failed',
     };
+  }
+};
+
+const uploadImages = async (images: File[]) => {
+  try {
+    const uploadPromises = images.map(async (image) => {
+      try {
+        const buffer = await image.arrayBuffer();
+        const base64 = Buffer.from(buffer).toString('base64');
+        return cloudinary.uploader
+          .upload(`data:image/png;base64,${base64}`)
+          .then((res) => res.secure_url);
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    });
+
+    const uploadedimages = await Promise.all(uploadPromises);
+    return uploadedimages;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };
