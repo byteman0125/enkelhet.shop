@@ -3,7 +3,6 @@ import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
@@ -11,8 +10,6 @@ export const Sidebar = () => {
 
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
-
-  useEffect(() => {}, []);
 
   return (
     isSidemenuOpen && (
@@ -83,9 +80,30 @@ export const Sidebar = () => {
                   <div className="w-4 h-4 bg-yellow-300 rounded-full" />
                   <p>Admin panel</p>
                 </div>
-                <Link href={`/`}>Products</Link>
-                <Link href={`/`}>Orders</Link>
-                <Link href={`/`}>Users</Link>
+                <Link
+                  href={`/admin/products`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Products
+                </Link>
+                <Link
+                  href={`/admin/orders`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Orders
+                </Link>
+                <Link
+                  href={`/admin/users`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  Users
+                </Link>
               </>
             )}
           </nav>
