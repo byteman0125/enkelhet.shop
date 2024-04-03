@@ -1,6 +1,6 @@
-export * from './Footer/Footer';
-export * from './Hero/Hero';
-export * from './Loader/Loader';
-export * from './Navbar/Navbar';
-export * from './Pagination/Pagination';
-export * from './Sidebar/Sidebar';
+export { Footer } from './Footer/Footer';
+export { Hero } from './Hero/Hero';
+export { Loader } from './Loader/Loader';
+export { Navbar } from './Navbar/Navbar';
+export { Pagination } from './Pagination/Pagination';
+export { Sidebar } from './Sidebar/Sidebar';
