@@ -1,5 +1,7 @@
 'use server';
-import { Series } from '@prisma/client';
+import { FinishType } from '@/interfaces';
+import prisma from '@/utils/prisma';
+import { Product, Series } from '@prisma/client';
 import { z } from 'zod';
 
 const productSchema = z.object({
@@ -23,7 +25,6 @@ const productSchema = z.object({
 export const createUpdateProduct = async (formData: FormData) => {
   const data = Object.fromEntries(formData);
   const parsedProduct = productSchema.safeParse(data);
-
   if (!parsedProduct.success) {
     console.log(parsedProduct.error);
     return {
@@ -31,7 +32,35 @@ export const createUpdateProduct = async (formData: FormData) => {
     };
   }
 
-  console.log(parsedProduct);
+  const product = parsedProduct.data;
+  console.log(product);
+  product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
+  const { id, ...rest } = product;
+
+  const prismaTx = await prisma.$transaction(async (tx) => {
+    let product: Product;
+    const tagsArray = rest.tags
+      .split(',')
+      .map((tag) => tag.trim().toLowerCase());
+
+    if (id) {
+      product = await prisma.product.update({
+        where: {
+          id,
+        },
+        data: {
+          ...rest,
+          finish: rest.finish as FinishType[],
+          tags: {
+            set: tagsArray,
+          },
+        },
+      });
+      console.log({ updatedProduct: product });
+    } else {
+    }
+  });
+
   return {
     ok: true,
   };

@@ -1,8 +1,11 @@
 'use client';
 
 import { createUpdateProduct } from '@/actions';
+import { ProductModel } from '@/components';
 import { finishes } from '@/constants';
 import { FinishType, IProduct, IProductImage } from '@/interfaces';
+import { Environment, OrbitControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 
@@ -172,9 +175,23 @@ export const ProductForm = ({ product }: Props) => {
           </button>
         </div>
         <div className=" flex flex-col">
-          <div className="flex-1 border-b border-black bg-blue-400">
-            {' '}
-            viewer
+          <div className="flex-1 border-b border-black relative">
+            <div className="absolute top-4 right-4 z-50">
+              <p>file_name: enkelhet_positive_chair.glb</p>
+              <p>file_size: 1248kb</p>
+            </div>
+            <Canvas
+              className="w-full h-full bg-yellow-300"
+              camera={{ fov: 30, zoom: 0.4, position: [0, 1, 6] }}
+            >
+              <ProductModel />
+              <Environment preset="apartment" />
+              <OrbitControls
+                autoRotateSpeed={0.8}
+                enableZoom={false}
+                autoRotate
+              />
+            </Canvas>
           </div>
           <div className="flex flex-col justify-end">
             <input
