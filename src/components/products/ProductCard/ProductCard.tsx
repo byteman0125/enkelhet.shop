@@ -20,7 +20,7 @@ export const ProductCard = ({ product }: Props) => {
         <div className="flex items-center justify-between">
           <p>{currencyFormat(product.price)}</p>
           <div className="flex items-center gap-2">
-            {product.finish.map((finishItem, i) => (
+            {product.finish.map((finishItem) => (
               <div className="h-4 w-4 relative" key={finishItem}>
                 <Image
                   src={`/woods/${finishItem}.jpg`}

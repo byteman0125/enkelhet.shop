@@ -1,6 +1,6 @@
 'use client';
 
-import { createUpdateProduct } from '@/actions';
+import { createUpdateProduct, deleteProductImage } from '@/actions';
 import { ProductModel } from '@/components';
 import { Input } from '@/components/base/FormInputs/Input';
 import { TextArea } from '@/components/base/FormInputs/TextArea';
@@ -41,27 +41,21 @@ interface IFormInputs {
 
 export const ProductForm = ({ product, isNew }: Props) => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { isValid },
-    getValues,
-    setValue,
-    watch,
-  } = useForm<IFormInputs>({
-    defaultValues: {
-      ...product,
-      tags: product.tags?.join(', '),
-      finish: product.finish ?? [],
-      measurements: {
-        depth: product.measurements?.depth ?? 0,
-        seat_height: product.measurements?.seat_height ?? 0,
-        width: product.measurements?.width ?? 0,
-        total_height: product.measurements?.total_height ?? 0,
+  const { register, handleSubmit, getValues, setValue, watch } =
+    useForm<IFormInputs>({
+      defaultValues: {
+        ...product,
+        tags: product.tags?.join(', '),
+        finish: product.finish ?? [],
+        measurements: {
+          depth: product.measurements?.depth ?? 0,
+          seat_height: product.measurements?.seat_height ?? 0,
+          width: product.measurements?.width ?? 0,
+          total_height: product.measurements?.total_height ?? 0,
+        },
+        images: undefined,
       },
-      images: undefined,
-    },
-  });
+    });
 
   watch('finish');
 
@@ -292,7 +286,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
               {product.ProductImage?.map((image) => (
                 <div key={image.id} className="relative">
                   <Image
-                    src={image.url ? image.url : '/placeholder.png'}
+                    src={image?.url ? image.url : '/placeholder.png'}
                     alt={`${product.title} wood`}
                     className="object-cover p-4 h-[200px] w-[200px] aspect-square"
                     width={300}
@@ -300,7 +294,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
                   />
                   <button
                     className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
-                    onClick={() => console.log(image.id, image.url)}
+                    onClick={() => deleteProductImage(image.id, image.url)}
                   >
                     [x]
                   </button>

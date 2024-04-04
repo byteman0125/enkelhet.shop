@@ -3,7 +3,7 @@ import { getOrderByUser } from '@/actions';
 import Link from 'next/link';
 
 export default async function OrdersPage() {
-  const { ok, orders = [] } = await getOrderByUser();
+  const { orders = [] } = await getOrderByUser();
 
   return (
     <>
