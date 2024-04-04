@@ -18,6 +18,9 @@ enum Finish {
   ash
   walnut
   wenge
+  red
+  green
+  blue
 }
 
 enum Role {
