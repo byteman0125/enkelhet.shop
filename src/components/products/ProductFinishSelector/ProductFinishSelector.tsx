@@ -5,7 +5,7 @@ import Image from 'next/image';
 interface Props {
   selectedFinish: FinishType;
   onFinishChange: (finish: FinishType) => void;
-  finishes: ('oak' | 'ash' | 'walnut' | 'wenge')[];
+  finishes: ('oak' | 'ash' | 'walnut' | 'wenge' | 'blue' | 'red' | 'green')[];
 }
 
 export const ProductFinishSelector = ({

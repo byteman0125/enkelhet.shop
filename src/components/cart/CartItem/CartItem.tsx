@@ -21,7 +21,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
     <div className="border-b border-black flex h-fit md:h-[140px]">
       <figure className="aspect-square relative border-r border-black">
         <Image
-          src={`/${product.image}`}
+          src={`${product.image}`}
           alt="product image"
           className="object-cover"
           fill

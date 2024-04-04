@@ -47,7 +47,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="col-span-12 xl:col-span-7 border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px]">
             <Image
-              src={`/${product.images[0]}`}
+              src={`${product.images[0]}`}
               alt=""
               fill
               className="object-cover object-top"

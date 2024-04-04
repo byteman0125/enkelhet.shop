@@ -292,7 +292,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
               {product.ProductImage?.map((image) => (
                 <div key={image.id} className="relative">
                   <Image
-                    src={`/${image.url}`}
+                    src={image.url ? image.url : '/placeholder.png'}
                     alt={`${product.title} wood`}
                     className="object-cover p-4 h-[200px] w-[200px] aspect-square"
                     width={300}

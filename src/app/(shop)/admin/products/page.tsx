@@ -67,7 +67,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                   <Image
                     src={
                       product.images[0]
-                        ? `/${product.images[0]}`
+                        ? `${product.images[0]}`
                         : `/placeholder.png`
                     }
                     alt={`${product.title}`}
