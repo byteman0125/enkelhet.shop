@@ -1,6 +1,6 @@
 'use client';
 
-import { createUpdateProduct } from '@/actions';
+import { createUpdateProduct, deleteProductImage } from '@/actions';
 import { ProductModel } from '@/components';
 import { Input } from '@/components/base/FormInputs/Input';
 import { TextArea } from '@/components/base/FormInputs/TextArea';
@@ -292,7 +292,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
               {product.ProductImage?.map((image) => (
                 <div key={image.id} className="relative">
                   <Image
-                    src={image.url ? image.url : '/placeholder.png'}
+                    src={image?.url ? image.url : '/placeholder.png'}
                     alt={`${product.title} wood`}
                     className="object-cover p-4 h-[200px] w-[200px] aspect-square"
                     width={300}
@@ -300,7 +300,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
                   />
                   <button
                     className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
-                    onClick={() => console.log(image.id, image.url)}
+                    onClick={() => deleteProductImage(image.id, image.url)}
                   >
                     [x]
                   </button>
