@@ -41,7 +41,7 @@ export const createUpdateProduct = async (formData: FormData) => {
   product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
   const { id, measurements, ...rest } = product;
   try {
-    const prismaTx = await prisma.$transaction(async (tx) => {
+    const prismaTx = await prisma.$transaction(async () => {
       let product: Product;
       const tagsArray = rest.tags
         .split(',')
@@ -65,7 +65,7 @@ export const createUpdateProduct = async (formData: FormData) => {
           },
         });
 
-        let measurement = await prisma.measurements.update({
+        await prisma.measurements.update({
           data: {
             ...measurementData,
           },

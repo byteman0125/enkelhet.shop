@@ -13,11 +13,10 @@ interface Props {
 export default async function AdminProductsPage({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { products, totalPages, currentPage } =
-    await getPaginatedProductsWithImages({
-      page,
-      take: 5,
-    });
+  const { products, totalPages } = await getPaginatedProductsWithImages({
+    page,
+    take: 5,
+  });
 
   return (
     <>
