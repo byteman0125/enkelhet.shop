@@ -13,11 +13,10 @@ interface Props {
 export default async function AdminProductsPage({ searchParams }: Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { products, totalPages, currentPage } =
-    await getPaginatedProductsWithImages({
-      page,
-      take: 5,
-    });
+  const { products, totalPages } = await getPaginatedProductsWithImages({
+    page,
+    take: 5,
+  });
 
   return (
     <>
@@ -65,7 +64,11 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                   className="px-6 py-2 whitespace-nowrap font-normal"
                 >
                   <Image
-                    src={`/${product.images[0]}`}
+                    src={
+                      product.images[0]
+                        ? `${product.images[0]}`
+                        : `/placeholder.png`
+                    }
                     alt={`${product.title}`}
                     width={100}
                     height={100}

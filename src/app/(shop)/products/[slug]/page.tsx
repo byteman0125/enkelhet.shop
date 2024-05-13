@@ -34,10 +34,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { slug } = params;
   const product = await getProductBySlug(slug);
-
   if (!product) {
     notFound();
   }
+
   return (
     <>
       <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10">
@@ -47,14 +47,19 @@ export default async function ProductPage({ params }: Props) {
         <div className="col-span-12 xl:col-span-7 border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px]">
             <Image
-              src={`/${product.images[0]}`}
+              src={`${product.images[0]}`}
               alt=""
               fill
               className="object-cover object-top"
             />
           </div>
           <div className="w-full h-[calc(100vh-134px)] sticky top-[134px] ">
-            <ProductExperience />
+            <ProductExperience
+              model={
+                product?.ProductModel[0].url && product?.ProductModel[0].url
+              }
+              measurements={product.measurements}
+            />
           </div>
         </div>
         <div className="col-span-12 xl:col-span-5 h-full flex flex-col justify-between">

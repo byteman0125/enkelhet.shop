@@ -1,4 +1,11 @@
-export type FinishType = 'oak' | 'ash' | 'walnut' | 'wenge';
+export type FinishType =
+  | 'oak'
+  | 'ash'
+  | 'walnut'
+  | 'wenge'
+  | 'green'
+  | 'blue'
+  | 'red';
 
 type MeasurementsType = {
   total_height: number | null;
@@ -29,8 +36,13 @@ export interface ICartProduct {
   quantity: number;
   finish: FinishType;
   image: string;
+  inStock: number;
 }
 export interface IProductImage {
+  id: number;
+  url: string;
+}
+export interface IProductModel {
   id: number;
   url: string;
 }

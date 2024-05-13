@@ -18,6 +18,9 @@ enum Finish {
   ash
   walnut
   wenge
+  red
+  green
+  blue
 }
 
 enum Role {
@@ -48,8 +51,16 @@ model Product {
   measurementsId String
   ProductImage   ProductImage[]
   OrderItem      OrderItem[]
+  ProductModel   ProductModel[]
 
   @@index([series])
+}
+
+model ProductModel {
+  id        Int     @id @default(autoincrement())
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
 }
 
 model ProductImage {

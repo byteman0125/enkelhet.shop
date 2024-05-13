@@ -1,8 +1,13 @@
-export const Loader = () => {
+interface Props {
+  color?: string;
+  size?: string;
+}
+
+export const Loader = ({ color = 'stroke-black', size = '5' }: Props) => {
   return (
     <div aria-label="Loading..." role="status">
       <svg
-        className="h-12 w-12 animate-spin stroke-black"
+        className={`h-${size} w-${size} animate-spin ${color}`}
         viewBox="0 0 256 256"
       >
         <line

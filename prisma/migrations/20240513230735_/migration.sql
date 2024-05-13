@@ -2,7 +2,7 @@
 CREATE TYPE "Series" AS ENUM ('lounge', 'alabaster', 'capsule');
 
 -- CreateEnum
-CREATE TYPE "Finish" AS ENUM ('oak', 'ash', 'walnut', 'wenge');
+CREATE TYPE "Finish" AS ENUM ('oak', 'ash', 'walnut', 'wenge', 'red', 'green', 'blue');
 
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
@@ -32,6 +32,15 @@ CREATE TABLE "Product" (
     "measurementsId" TEXT NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProductModel" (
+    "id" SERIAL NOT NULL,
+    "url" TEXT NOT NULL,
+    "productId" TEXT NOT NULL,
+
+    CONSTRAINT "ProductModel_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -145,6 +154,9 @@ CREATE UNIQUE INDEX "OrderAddress_orderId_key" ON "OrderAddress"("orderId");
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_measurementsId_fkey" FOREIGN KEY ("measurementsId") REFERENCES "Measurements"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductModel" ADD CONSTRAINT "ProductModel_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductImage" ADD CONSTRAINT "ProductImage_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

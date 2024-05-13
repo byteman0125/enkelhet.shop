@@ -2,14 +2,16 @@
 
 interface Props {
   quantity: number;
+  stock: number;
   onQuantityChange: (value: number) => void;
 }
 export const QuantityProductSelector = ({
   quantity,
   onQuantityChange,
+  stock,
 }: Props) => {
   const onValueChange = (value: number) => {
-    if (quantity + value < 1) return;
+    if (quantity + value < 1 || quantity + value > stock) return;
 
     onQuantityChange(quantity + value);
   };
@@ -24,7 +26,11 @@ export const QuantityProductSelector = ({
         <div className="w-4 flex items-center justify-center">
           <p>{quantity}</p>
         </div>
-        <button onClick={() => onValueChange(+1)} className="p-1">
+        <button
+          onClick={() => onValueChange(+1)}
+          className="p-1 disabled:text-gray-500"
+          disabled={quantity >= stock}
+        >
           +
         </button>
       </div>

@@ -23,6 +23,7 @@ export const AddToCart = ({ product }: Props) => {
       quantity: quantity,
       finish: finish,
       image: product.images[0],
+      inStock: product.inStock,
     };
 
     addProductToCart(cartProduct);
@@ -42,6 +43,7 @@ export const AddToCart = ({ product }: Props) => {
       <div>
         <div className="border-t border-black">
           <QuantityProductSelector
+            stock={product.inStock}
             quantity={quantity}
             onQuantityChange={setQuantity}
           />

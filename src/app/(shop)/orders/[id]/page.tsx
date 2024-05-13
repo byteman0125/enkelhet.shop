@@ -35,6 +35,7 @@ export default async function OrderPage({ params }: Props) {
               slug: item.product.slug,
               quantity: item.quantity,
               image: item.product.ProductImage[0].url,
+              inStock: item.product.inStock,
             };
             return (
               <CartItem
