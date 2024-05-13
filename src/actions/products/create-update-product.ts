@@ -100,11 +100,17 @@ export const createUpdateProduct = async (formData: FormData) => {
           throw new Error('model upload failed... rollback');
         }
 
-        await prisma.productModel.createMany({
-          data: models.map((model) => ({
-            url: model!,
+        await prisma.productModel.deleteMany({
+          where: {
             productId: product.id,
-          })),
+          },
+        });
+
+        await prisma.productModel.create({
+          data: {
+            url: models[0]!,
+            productId: product.id,
+          },
         });
       }
 
@@ -158,7 +164,7 @@ const uploadModels = async (models: File[]) => {
     });
 
     const uploadedModels = await Promise.all(uploadPromises);
-    console.log(uploadModels);
+
     return uploadedModels;
   } catch (error) {
     console.log(error);

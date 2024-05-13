@@ -308,7 +308,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
               product.ProductModel[0] && (
                 <Model
                   measurements={inputMeasurements}
-                  model={product.ProductModel[1].url}
+                  model={product.ProductModel[0].url}
                 />
               )
             )}
