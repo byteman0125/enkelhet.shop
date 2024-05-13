@@ -42,6 +42,7 @@ export const AddToCart = ({ product }: Props) => {
       <div>
         <div className="border-t border-black">
           <QuantityProductSelector
+            stock={product.inStock}
             quantity={quantity}
             onQuantityChange={setQuantity}
           />

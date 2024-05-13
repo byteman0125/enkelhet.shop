@@ -31,13 +31,14 @@ export const PlaceOrder = () => {
     }));
 
     const res = await placeOrder(productsToOrder, address);
+
     if (!res.ok) {
       setIsPlacingOrder(false);
-      setErrorMessage(res.message);
+      setErrorMessage("Order couldn't be placed. Please try again later.");
 
       setTimeout(() => {
         setErrorMessage('');
-      }, 3000);
+      }, 5000);
       return;
     }
 
