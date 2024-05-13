@@ -49,6 +49,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
           <div className="max-w-52 w-full">
             {editable ? (
               <QuantityProductSelector
+                stock={product.inStock}
                 onQuantityChange={(quantity) =>
                   updateProductQuantity(product, quantity)
                 }

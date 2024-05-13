@@ -36,6 +36,7 @@ export interface ICartProduct {
   quantity: number;
   finish: FinishType;
   image: string;
+  inStock: number;
 }
 export interface IProductImage {
   id: number;
