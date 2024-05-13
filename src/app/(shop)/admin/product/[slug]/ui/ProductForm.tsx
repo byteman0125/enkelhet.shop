@@ -1,19 +1,26 @@
 'use client';
 
 import { createUpdateProduct, deleteProductImage } from '@/actions';
-import { ProductModel } from '@/components';
+import { Loader } from '@/components';
 import { Input } from '@/components/base/FormInputs/Input';
 import { TextArea } from '@/components/base/FormInputs/TextArea';
 import { finishes } from '@/constants';
-import { FinishType, IProduct, IProductImage } from '@/interfaces';
-import { Environment, OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import {
+  FinishType,
+  IProduct,
+  IProductImage,
+  IProductModel,
+} from '@/interfaces';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Model } from './Model';
 
 interface Props {
-  product: Partial<IProduct> & { ProductImage?: IProductImage[] };
+  product: Partial<IProduct> & { ProductImage?: IProductImage[] } & {
+    ProductModel?: IProductModel[];
+  };
   isNew: boolean;
 }
 
@@ -35,11 +42,15 @@ interface IFormInputs {
   series: 'lounge' | 'alabaster' | 'capsule';
   seriesId: string;
   measurements: Measurements;
-  //TODO: images
   images?: FileList;
+  model?: FileList;
 }
 
 export const ProductForm = ({ product, isNew }: Props) => {
+  console.log(product);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [uploadedModel, setUploadedModel] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const { register, handleSubmit, getValues, setValue, watch } =
     useForm<IFormInputs>({
@@ -54,10 +65,12 @@ export const ProductForm = ({ product, isNew }: Props) => {
           total_height: product.measurements?.total_height ?? 0,
         },
         images: undefined,
+        model: undefined,
       },
     });
 
   watch('finish');
+  const inputMeasurements = watch('measurements');
 
   const buttonTitle = isNew ? 'Create new product' : `Update ${product.title}`;
 
@@ -69,7 +82,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
 
   const onSubmit = async (data: IFormInputs) => {
     const formData = new FormData();
-    const { images, ...productToSave } = data;
+    const { images, model, ...productToSave } = data;
     if (product.id) {
       formData.append('id', product.id ?? '');
     }
@@ -88,13 +101,38 @@ export const ProductForm = ({ product, isNew }: Props) => {
         formData.append('images', images[i]);
       }
     }
-
+    if (model) {
+      for (let i = 0; i < model.length; i++) {
+        formData.append('models', model[i]);
+      }
+    }
+    setLoading(true);
     const { ok, productDB } = await createUpdateProduct(formData);
     if (!ok) {
       return;
     }
+    setLoading(false);
 
     router.replace(`/admin/product/${productDB?.slug}`);
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const urls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const url = URL.createObjectURL(files[i]);
+        urls.push(url);
+      }
+      setUploadedImages(urls);
+    }
+  };
+  const handleModelUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const url = URL.createObjectURL(files[0]);
+      setUploadedModel(url);
+    }
   };
 
   return (
@@ -140,11 +178,11 @@ export const ProductForm = ({ product, isNew }: Props) => {
               formName="tags"
               register={register}
             />
-            <div className="flex justify-between w-full h-[49px] border-b border-black">
+            <div className="grid grid-cols-4 w-full border-b border-black ">
               {finishes.map((finishItem) => (
                 <button
                   onClick={() => onSizeChanged(finishItem)}
-                  className="w-full hover:bg-gray-300 cursor-pointer"
+                  className="hover:bg-gray-300 cursor-pointer w-full "
                   key={finishItem}
                 >
                   <div
@@ -249,29 +287,38 @@ export const ProductForm = ({ product, isNew }: Props) => {
               </div>
             </div>
           </div>
-          <button className="w-full p-4 text-white bg-black">
-            {buttonTitle}
+          <button
+            className="w-full p-4 text-white bg-black h-14 flex items-center justify-center"
+            disabled={loading}
+          >
+            {loading ? <Loader color="stroke-white" /> : buttonTitle}
           </button>
         </div>
         <div className=" flex flex-col">
           <div className="flex-1 border-b border-black relative">
-            <div className="absolute top-4 right-4 z-50">
+            <div className="absolute top-4 right-4 z-[15]">
               <p>file_name: enkelhet_positive_chair.glb</p>
               <p>file_size: 1248kb</p>
             </div>
-            <Canvas
-              className="w-full h-full bg-yellow-300"
-              camera={{ fov: 30, zoom: 0.4, position: [0, 1, 6] }}
-            >
-              <ProductModel />
-              <Environment preset="apartment" />
-              <OrbitControls
-                autoRotateSpeed={0.8}
-                enableZoom={false}
-                autoRotate
-              />
-            </Canvas>
+            {uploadedModel ? (
+              <Model measurements={inputMeasurements} model={uploadedModel} />
+            ) : (
+              product?.ProductModel &&
+              product.ProductModel.length > 0 &&
+              product.ProductModel[0] && (
+                <Model
+                  measurements={inputMeasurements}
+                  model={product.ProductModel[0].url}
+                />
+              )
+            )}
           </div>
+          <input
+            className="appearance-none w-full border-b border-black file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3 cursor-pointer"
+            type="file"
+            {...register('model')}
+            onChange={handleModelUpload}
+          />
           <div className="flex flex-col justify-end">
             <input
               className="appearance-none w-full border-b border-black file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3 cursor-pointer"
@@ -280,26 +327,47 @@ export const ProductForm = ({ product, isNew }: Props) => {
               accept="image/png, image/jpeg, image/avif, image/webp"
               multiple
               {...register('images')}
+              onChange={handleImageUpload}
             />
 
             <div className="flex border-b border-black ">
-              {product.ProductImage?.map((image) => (
-                <div key={image.id} className="relative">
-                  <Image
-                    src={image?.url ? image.url : '/placeholder.png'}
-                    alt={`${product.title} wood`}
-                    className="object-cover p-4 h-[200px] w-[200px] aspect-square"
-                    width={300}
-                    height={300}
-                  />
-                  <button
-                    className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
-                    onClick={() => deleteProductImage(image.id, image.url)}
-                  >
-                    [x]
-                  </button>
-                </div>
-              ))}
+              {uploadedImages.length > 0
+                ? uploadedImages.map((url, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={url}
+                        alt={`Uploaded image ${index + 1}`}
+                        className="object-cover p-4 h-[200px] w-[200px] aspect-square"
+                      />
+                      <button
+                        className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
+                        onClick={() => {
+                          const newImages = [...uploadedImages];
+                          newImages.splice(index, 1);
+                          setUploadedImages(newImages);
+                        }}
+                      >
+                        [x]
+                      </button>
+                    </div>
+                  ))
+                : product.ProductImage?.map((image) => (
+                    <div key={image.id} className="relative">
+                      <Image
+                        src={image?.url ? image.url : '/placeholder.png'}
+                        alt={`${product.title} wood`}
+                        className="object-cover p-4 h-[200px] w-[200px] aspect-square"
+                        width={300}
+                        height={300}
+                      />
+                      <button
+                        className="p-1 bg-black absolute top-4 right-4 flex items-center justify-center text-white"
+                        onClick={() => deleteProductImage(image.id, image.url)}
+                      >
+                        [x]
+                      </button>
+                    </div>
+                  ))}
               <div>
                 <div className="p-4 h-[200px] w-[200px]"></div>
               </div>

@@ -41,3 +41,7 @@ export interface IProductImage {
   id: number;
   url: string;
 }
+export interface IProductModel {
+  id: number;
+  url: string;
+}

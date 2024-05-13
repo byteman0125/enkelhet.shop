@@ -1,3 +1,11 @@
 import { FinishType } from '@/interfaces';
 
-export const finishes: FinishType[] = ['oak', 'ash', 'walnut', 'wenge'];
+export const finishes: FinishType[] = [
+  'oak',
+  'ash',
+  'walnut',
+  'wenge',
+  'blue',
+  'red',
+  'green',
+];

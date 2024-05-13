@@ -2,7 +2,7 @@
 CREATE TYPE "Series" AS ENUM ('lounge', 'alabaster', 'capsule');
 
 -- CreateEnum
-CREATE TYPE "Finish" AS ENUM ('oak', 'ash', 'walnut', 'wenge');
+CREATE TYPE "Finish" AS ENUM ('oak', 'ash', 'walnut', 'wenge', 'red', 'green', 'blue');
 
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
@@ -30,6 +30,7 @@ CREATE TABLE "Product" (
     "series" "Series" NOT NULL,
     "finish" "Finish"[],
     "measurementsId" TEXT NOT NULL,
+    "model" BYTEA,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
