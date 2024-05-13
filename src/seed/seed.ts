@@ -11,6 +11,7 @@ export interface SeedProduct {
   finish: ('oak' | 'ash' | 'walnut' | 'wenge' | 'blue' | 'green' | 'red')[];
   series: 'lounge' | 'alabaster' | 'capsule';
   measurements: MeasurementsType;
+  model?: string[];
 }
 
 export interface SeedUser {
@@ -57,6 +58,9 @@ export const initialData: SeedData = {
       tags: [''],
       title: 'LOUNGE CHAIR',
       series: 'capsule',
+      model: [
+        'https://res.cloudinary.com/djzdzdxy3/image/upload/v1715632884/chair_fp3kxw.glb',
+      ],
       measurements: {
         total_height: 90,
         seat_height: 40,
@@ -80,6 +84,9 @@ export const initialData: SeedData = {
         width: 60,
         depth: 80,
       },
+      model: [
+        'https://res.cloudinary.com/djzdzdxy3/image/upload/v1715632884/chair_fp3kxw.glb',
+      ],
       finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
@@ -100,6 +107,9 @@ export const initialData: SeedData = {
         width: 38,
         depth: 38,
       },
+      model: [
+        'https://res.cloudinary.com/djzdzdxy3/image/upload/v1715632884/chair_fp3kxw.glb',
+      ],
       finish: ['ash', 'walnut', 'wenge'],
     },
     {
@@ -117,6 +127,9 @@ export const initialData: SeedData = {
         width: 70,
         depth: 56,
       },
+      model: [
+        'https://res.cloudinary.com/djzdzdxy3/image/upload/v1715632884/chair_fp3kxw.glb',
+      ],
       finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
@@ -134,6 +147,9 @@ export const initialData: SeedData = {
         width: 45,
         depth: 45,
       },
+      model: [
+        'https://res.cloudinary.com/djzdzdxy3/image/upload/v1715632884/chair_fp3kxw.glb',
+      ],
       finish: ['ash', 'oak', 'walnut', 'wenge'],
     },
     {
@@ -151,6 +167,9 @@ export const initialData: SeedData = {
         width: 45,
         depth: 50,
       },
+      model: [
+        'https://res.cloudinary.com/djzdzdxy3/image/upload/v1715632884/chair_fp3kxw.glb',
+      ],
       finish: ['ash', 'oak', 'walnut'],
     },
   ],

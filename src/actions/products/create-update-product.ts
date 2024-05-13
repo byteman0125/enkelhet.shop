@@ -30,6 +30,7 @@ const productSchema = z.object({
 export const createUpdateProduct = async (formData: FormData) => {
   const data = Object.fromEntries(formData);
   const parsedProduct = productSchema.safeParse(data);
+
   if (!parsedProduct.success) {
     console.log(parsedProduct.error);
     return {
@@ -40,6 +41,7 @@ export const createUpdateProduct = async (formData: FormData) => {
   const product = parsedProduct.data;
   product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
   const { id, measurements, ...rest } = product;
+
   try {
     const prismaTx = await prisma.$transaction(async () => {
       let product: Product;
@@ -92,8 +94,20 @@ export const createUpdateProduct = async (formData: FormData) => {
           },
         });
       }
+      if (formData.getAll('models')) {
+        const models = await uploadModels(formData.getAll('models') as File[]);
+        if (!models) {
+          throw new Error('model upload failed... rollback');
+        }
 
-      //TODO: IMAGES
+        await prisma.productModel.createMany({
+          data: models.map((model) => ({
+            url: model!,
+            productId: product.id,
+          })),
+        });
+      }
+
       if (formData.getAll('images')) {
         const images = await uploadImages(formData.getAll('images') as File[]);
         if (!images) {
@@ -125,6 +139,30 @@ export const createUpdateProduct = async (formData: FormData) => {
       ok: false,
       message: 'item creation failed',
     };
+  }
+};
+
+const uploadModels = async (models: File[]) => {
+  try {
+    const uploadPromises = models.map(async (model) => {
+      try {
+        const buffer = await model.arrayBuffer();
+        const base64 = Buffer.from(buffer).toString('base64');
+        return cloudinary.uploader
+          .upload(`data:image/png;base64,${base64}`)
+          .then((res) => res.secure_url);
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    });
+
+    const uploadedModels = await Promise.all(uploadPromises);
+    console.log(uploadModels);
+    return uploadedModels;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };
 

@@ -9,6 +9,7 @@ async function main() {
   await prisma.userAddress.deleteMany();
   await prisma.user.deleteMany();
   await prisma.country.deleteMany();
+  await prisma.productModel.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.measurements.deleteMany();
@@ -24,7 +25,7 @@ async function main() {
   });
 
   products.forEach(async (product) => {
-    const { images, measurements, ...rest } = product;
+    const { images, measurements, model, ...rest } = product;
 
     let dbMeasurements;
     if (measurements) {
@@ -49,6 +50,16 @@ async function main() {
 
     await prisma.productImage.createMany({
       data: imagesData,
+    });
+
+    const modelsData =
+      model?.map((model) => ({
+        url: model,
+        productId: dbProduct.id,
+      })) || [];
+
+    await prisma.productModel.createMany({
+      data: modelsData,
     });
   });
 

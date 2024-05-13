@@ -15,6 +15,7 @@ export const getProductBySlug = async (slug: string) => {
             depth: true,
           },
         },
+        ProductModel: true,
       },
       where: {
         slug: slug,
