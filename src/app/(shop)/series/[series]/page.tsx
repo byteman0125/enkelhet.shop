@@ -24,10 +24,7 @@ export default async function SeriesPage({ params, searchParams }: Props) {
 
   return (
     <div className="">
-      <Hero
-        title={`${series}`}
-        text={`useParams is a Client Component hook that lets you read a route's dynamic params filled in by the current URL. ${series}`}
-      />
+      <Hero title={`${series}`} text={`Enkelhet serie ${series}`} />
       <ProductGrid products={products} />
       <Pagination totalPages={totalPages} />
     </div>
