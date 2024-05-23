@@ -18,7 +18,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
   const updateCartProduct = useCartStore((state) => state.removeCartProduct);
 
   return (
-    <div className="border-b border-black flex h-fit md:h-[140px]">
+    <div className="border-b border-black flex h-fit md:h-[140px] ">
       <figure className="aspect-square relative border-r border-black">
         <Image
           src={`${product.image}`}
@@ -28,7 +28,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
         />
       </figure>
       <div className="w-full h-full flex flex-col justify-between">
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between p-8 md:p-4">
           <Link
             href={`/products/${product.slug}`}
             className="hover:underline underline-offset-2"
@@ -67,7 +67,7 @@ export const CartItem = ({ product, editable = true }: Props) => {
             )}
           </div>
 
-          <p className="p-4">{currencyFormat(product.price)}</p>
+          <p className="px-8 md:px-4">{currencyFormat(product.price)}</p>
         </div>
       </div>
     </div>

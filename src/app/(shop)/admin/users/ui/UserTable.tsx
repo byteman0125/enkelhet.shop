@@ -13,7 +13,7 @@ export const UserTable = ({ users }: Props) => {
           <th scope="col" className="px-6 py-3">
             User ID
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-6 py-3 whitespace-nowrap">
             Full Name
           </th>
           <th scope="col" className="px-6 py-3">
@@ -22,7 +22,7 @@ export const UserTable = ({ users }: Props) => {
           <th scope="col" className="px-6 py-3">
             Role
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-6 py-3 whitespace-nowrap">
             Update role
           </th>
         </tr>
@@ -33,10 +33,10 @@ export const UserTable = ({ users }: Props) => {
             <th scope="row" className="px-6 py-4 whitespace-nowrap font-normal">
               {user.id}
             </th>
-            <td className="px-6 py-4">{user.name}</td>
-            <td className={`px-6 py-4 `}>{user.email}</td>
-            <td className="px-6 py-4">{user.role}</td>
-            <td className="px-6 py-4">
+            <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
+            <td className={`px-6 py-4 whitespace-nowrap `}>{user.email}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
+            <td className="px-6 py-4 whitespace-nowrap">
               <select
                 className="p-3 col-span-2 outline-none"
                 value={user.role}

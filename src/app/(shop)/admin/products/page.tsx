@@ -20,7 +20,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
 
   return (
     <>
-      <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
+      <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[65px] md:top-[81px] z-10 bg-white border-b border-black">
         <p>PRODUCTS - admin</p>
         <Link
           href={`/admin/product/new`}
@@ -78,7 +78,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                 <td className="px-6 py-4">
                   <Link
                     href={`/admin/product/${product.slug}`}
-                    className="hover:underline underline-offset-2"
+                    className="hover:underline underline-offset-2 whitespace-nowrap"
                   >
                     {product.title}
                   </Link>

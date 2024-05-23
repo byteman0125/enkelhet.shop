@@ -43,9 +43,9 @@ export default async function ProductPage({ params }: Props) {
       <div className="py-4 px-2 md:px-4 xl:px-6 text-sm border-b border-black sticky top-[65px] md:top-[81px] bg-white z-10">
         SHOP / {product.series} / {product.title}
       </div>
-      <div className="grid grid-cols-12 h-[calc(100vh-134px)] border-b-4 border-black md:border-none">
+      <div className="grid grid-cols-12 h-[calc(100vh-118px)] border-b-4 border-black md:border-none">
         <div className="col-span-12 xl:col-span-7 border-r border-black gallery relative">
-          <div className="w-full h-[calc(100vh-134px)] sticky top-[134px]">
+          <div className="w-full h-[calc(100vh-118px)] md:h-[calc(100vh-134px)] sticky  top-[118px] md:top-[134px]">
             <Image
               src={`${product.images[0]}`}
               alt=""
@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: Props) {
               className="object-cover object-top"
             />
           </div>
-          <div className="w-full h-[calc(100vh-134px)] sticky top-[134px] ">
+          <div className="w-full h-[calc(100vh-118px)] md:h-[calc(100vh-134px)] sticky top-[118px] md:top-[134px] ">
             <ProductExperience
               model={
                 product?.ProductModel[0].url && product?.ProductModel[0].url
@@ -63,7 +63,7 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
         <div className="col-span-12 xl:col-span-5 h-full flex flex-col justify-between">
-          <div className="h-[calc(100vh-134px)] w-full sticky top-[134px] flex flex-col justify-between">
+          <div className="h-[calc(100vh-134px)] w-full sticky  top-[118px] md:top-[134px] flex flex-col justify-between">
             <div className="pt-4 flex flex-col justify-between h-full">
               <div className="flex flex-col px-4">
                 <div className="flex w-full items-center justify-between">

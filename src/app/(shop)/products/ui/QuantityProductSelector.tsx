@@ -17,7 +17,7 @@ export const QuantityProductSelector = ({
   };
 
   return (
-    <div className="flex items-center col-span-3 md:col-span-2 w-full justify-between py-2 text-sm md:text-base px-4">
+    <div className="flex items-center col-span-3 md:col-span-2 w-full justify-between py-2 text-sm md:text-base  px-8 md:px-4">
       <p>QUANTITY</p>
       <div className="flex items-center justify-between gap-5">
         <button onClick={() => onValueChange(-1)} className="p-1">

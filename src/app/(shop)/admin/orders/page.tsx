@@ -17,23 +17,23 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
   }
   return (
     <>
-      <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
+      <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[65px] md:top-[81px] z-10 bg-white border-b border-black">
         <p>ORDERS - admin</p>
       </div>
       <div className="relative overflow-x-auto mb-12">
         <table className="w-full text-left rtl:text-right">
           <thead className="uppercase  py-4 px-2 md:px-4 xl:px-6 border-b border-black bg-black text-white">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 Order ID
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 Full Name
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 Payment status
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 options
               </th>
             </tr>
@@ -47,10 +47,10 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
                 >
                   {order.id}
                 </th>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 whitespace-nowrap">
                   {order.OrderAddress!.firstName} {order.OrderAddress!.lastName}
                 </td>
-                <td className={`px-6 py-4 `}>
+                <td className={`px-6 py-4 whitespace-nowrap`}>
                   <p
                     className={`${order!.isPaid ? 'bg-green-400' : 'bg-red-400'} w-fit`}
                   >
@@ -62,7 +62,7 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
                 <td className="px-6 py-4">
                   <Link
                     href={`/orders/${order.id}`}
-                    className="hover:underline underline-offset-2"
+                    className="hover:underline underline-offset-2 whitespace-nowrap"
                   >
                     check order
                   </Link>

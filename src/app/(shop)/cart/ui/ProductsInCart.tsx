@@ -16,7 +16,7 @@ export const ProductsInCart = ({ editable = true }: Props) => {
   const productsInCart = useCartStore((state) => state.cart);
 
   return (
-    <div className="w-full h-full border-r border-black ">
+    <div className="w-full h-full border-r border-black">
       {loaded && productsInCart.length > 0 ? (
         productsInCart.map((product) => (
           <CartItem
@@ -27,7 +27,7 @@ export const ProductsInCart = ({ editable = true }: Props) => {
         ))
       ) : (
         <>
-          <div className="flex flex-col items-center justify-center h-full px-8">
+          <div className="flex flex-col items-center justify-center h-full px-8 pt-8 md:pt-0">
             <h1 className="font-black text-[10vw]">(O.O)</h1>
             <p className="text-base mb-8 text-center">
               Oh, it seems that you have no items in the cart

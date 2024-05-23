@@ -34,9 +34,6 @@ export const Navbar = () => {
       </ul>
       <ul className="flex items-center gap-4 text-sm md:gap-6 md:text-base">
         <li>
-          <button>SEARCH</button>
-        </li>
-        <li>
           <Link href={`/cart`}>CART ({loaded ? totalItemsinCart : 0})</Link>
         </li>
         <li>
