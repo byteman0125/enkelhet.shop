@@ -3,11 +3,13 @@ import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { navItems } from '../Navbar/navItems';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
   const { data: session } = useSession();
-
+  const { series } = useParams();
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
 
@@ -18,10 +20,26 @@ export const Sidebar = () => {
           className="fixed top-0 left-0 w-full h-screen z-20 bg-black opacity-30"
           onClick={closeSideMenu}
         />
-        <div className="fixed top-0 right-0 w-[20vw] h-screen bg-white z-20">
+        <div className="fixed top-0 right-0 md:w-[400px] h-screen bg-white z-20 w-full">
           <div className="h-[65px] md:h-[81px] border-b border-black flex items-center justify-end py-4 pr-5">
             <button onClick={closeSideMenu}>CLOSE</button>
           </div>
+          <ul className="flex flex-col gap-5 p-6 md:hidden">
+            {navItems.map(({ id, label }) => (
+              <li key={id}>
+                <Link
+                  href={`/series/${label}`}
+                  className={`hover:underline underline-offset-2 ${series === label ? 'underline' : ''}`}
+                  onClick={() => {
+                    closeSideMenu();
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <div className="w-full h-px bg-black my-10 " />
+          </ul>
           <nav className="p-6 flex flex-col gap-5">
             <ul className="flex flex-col gap-5">
               {isAuthenticated && (
