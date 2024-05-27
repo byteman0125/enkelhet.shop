@@ -7,6 +7,9 @@ import { useFormState, useFormStatus } from 'react-dom';
 export const LogInForm = () => {
   const [state, dispatch] = useFormState(authenticate, undefined);
   const [visible, setVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { pending } = useFormStatus();
 
   useEffect(() => {
     if (state === 'Success') {
@@ -29,15 +32,19 @@ export const LogInForm = () => {
       <div className="flex flex-col gap-3  mb-8">
         <input
           type="email"
+          value={email}
           placeholder="Email"
           name="email"
+          onChange={(e) => setEmail(e.target.value)}
           className="border border-black p-3 outline-none"
         />
         <div className="w-full flex items-center relative">
           <input
             type={visible ? 'text' : 'password'}
+            value={password}
             placeholder="Password"
             name="password"
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full  border border-black p-3 outline-none"
           />
           <button
@@ -76,7 +83,23 @@ export const LogInForm = () => {
         </div>
       </div>
       <div className="w-full flex items-center mb-8">
-        <LoginButton />
+        <div className="flex flex-col gap-3 w-full">
+          <LoginButton />
+          <button
+            className={`flex items-center justify-center col-span-2 md:col-span-3 w-full px-4 py-4 text-white text-sm md:text-base h-14 bg-black`}
+            disabled={pending}
+            onClick={() => {
+              setEmail('admin@google.com');
+              setPassword('12345678');
+            }}
+          >
+            {pending ? (
+              <span className="typing-animation"></span>
+            ) : (
+              <span>Log In demo user</span>
+            )}
+          </button>
+        </div>
       </div>
       <div className="h-5">
         {state === 'CredentialsSignin' && (
@@ -92,11 +115,6 @@ export const LogInForm = () => {
         </Link>
       </div>
       <div className="w-full h-px bg-black mb-8"></div>
-      <div className="w-full flex items-center">
-        <button className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base ">
-          Log In with Google
-        </button>
-      </div>
     </form>
   );
 };
