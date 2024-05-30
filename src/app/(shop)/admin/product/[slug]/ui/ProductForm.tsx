@@ -297,8 +297,12 @@ export const ProductForm = ({ product, isNew }: Props) => {
         <div className=" flex flex-col">
           <div className="flex-1 border-b border-black relative">
             <div className="absolute top-4 right-4 z-[15]">
-              <p>file_name: enkelhet_positive_chair.glb</p>
-              <p>file_size: 1248kb</p>
+              <input
+                className="appearance-none cursor-pointer w-full border-b border-black file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3"
+                type="file"
+                {...register('model')}
+                onChange={handleModelUpload}
+              />
             </div>
             {uploadedModel ? (
               <Model measurements={inputMeasurements} model={uploadedModel} />
@@ -313,12 +317,7 @@ export const ProductForm = ({ product, isNew }: Props) => {
               )
             )}
           </div>
-          <input
-            className="appearance-none w-full border-b border-black file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3 cursor-pointer"
-            type="file"
-            {...register('model')}
-            onChange={handleModelUpload}
-          />
+
           <div className="flex flex-col justify-end">
             <input
               className="appearance-none w-full border-b border-black file:bg-black file:text-white file:h-[49px] file:border-none file:mr-3 cursor-pointer"
