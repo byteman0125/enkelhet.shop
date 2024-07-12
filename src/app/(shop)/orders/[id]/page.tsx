@@ -16,7 +16,7 @@ export default async function OrderPage({ params }: Props) {
 
   return (
     <>
-      <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[81px] z-10 bg-white border-b border-black">
+      <div className="py-4 px-2 md:px-4 xl:px-6 flex items-center justify-between w-full sticky top-[65px] md:top-[81px] z-10 bg-white border-b border-black">
         <p>ORDER - {id.split('-').at(-1)}</p>
         <div
           className={`${order!.isPaid ? 'bg-green-300' : 'bg-red-300'} px-1`}
@@ -25,7 +25,7 @@ export default async function OrderPage({ params }: Props) {
         </div>
       </div>
       <div className={`w-full grid grid-cols-1 xl:grid-cols-2 `}>
-        <div className="w-full h-full border-r border-black">
+        <div className="w-full h-full md:border-r md:border-black ">
           {order!.OrderItem.map((item) => {
             const product = {
               id: item.product.id,

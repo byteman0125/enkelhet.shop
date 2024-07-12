@@ -3,15 +3,18 @@ import { logout } from '@/actions';
 import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { navItems } from '../Navbar/navItems';
 
 export const Sidebar = () => {
   const { isSidemenuOpen, closeSideMenu } = useUiStore();
   const { data: session } = useSession();
   const { series } = useParams();
+  const pathname = usePathname();
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
+
+  console.log(pathname);
 
   return (
     isSidemenuOpen && (
@@ -38,30 +41,21 @@ export const Sidebar = () => {
                 </Link>
               </li>
             ))}
-            <div className="w-full h-px bg-black my-10 " />
           </ul>
+          <hr />
           <nav className="p-6 flex flex-col gap-5">
             <ul className="flex flex-col gap-5">
               {isAuthenticated && (
                 <>
                   <li>
                     <Link
-                      href={`/profile`}
-                      onClick={() => {
-                        closeSideMenu();
-                      }}
-                    >
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href={`/orders`}
                       onClick={() => {
                         closeSideMenu();
                       }}
+                      className={`${pathname === '/orders' ? 'underline underline-offset-4' : ''}`}
                     >
-                      Orders
+                      My Orders
                     </Link>
                   </li>
                   <li>
@@ -93,12 +87,13 @@ export const Sidebar = () => {
             </ul>
             {isAdmin && (
               <>
-                <div className="w-full h-px bg-black my-10" />
+                <hr />
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 bg-yellow-300 rounded-full" />
                   <p>Admin panel</p>
                 </div>
                 <Link
+                  className={`${pathname === '/admin/products' ? 'underline underline-offset-4' : ''}`}
                   href={`/admin/products`}
                   onClick={() => {
                     closeSideMenu();
@@ -108,6 +103,7 @@ export const Sidebar = () => {
                 </Link>
                 <Link
                   href={`/admin/orders`}
+                  className={`${pathname === '/admin/orders' ? 'underline underline-offset-4' : ''}`}
                   onClick={() => {
                     closeSideMenu();
                   }}
@@ -116,6 +112,7 @@ export const Sidebar = () => {
                 </Link>
                 <Link
                   href={`/admin/users`}
+                  className={`${pathname === '/admin/users' ? 'underline underline-offset-4' : ''}`}
                   onClick={() => {
                     closeSideMenu();
                   }}

@@ -43,7 +43,7 @@ export const RegisterForm = () => {
   return (
     <>
       <form
-        className="max-w-[600px] w-full h-full md:h-[800px] bg-white border border-black p-8 flex flex-col"
+        className="max-w-[600px] w-full h-full md:h-[800px] bg-white p-8 flex flex-col justify-center"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Link
@@ -57,14 +57,14 @@ export const RegisterForm = () => {
           <input
             type="text"
             placeholder="Full Name"
-            className={`border p-3 ${errors.name ? 'border-red-400' : 'border-black'} outline-none`}
+            className={`border p-3 ${errors.name ? 'border-red-400' : ''} outline-none`}
             {...register('name', { required: true })}
             autoFocus
           />
           <input
             type="text"
             placeholder="Email"
-            className={`border p-3 ${errors.email ? 'border-red-400' : 'border-black'} outline-none`}
+            className={`border p-3 ${errors.email ? 'border-red-400' : ''} outline-none`}
             {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
           />
 
@@ -72,7 +72,7 @@ export const RegisterForm = () => {
             <input
               type={visible ? 'text' : 'password'}
               placeholder="Password"
-              className={`border p-3 ${errors.password ? 'border-red-400' : 'border-black'} w-full outline-none`}
+              className={`border p-3 ${errors.password ? 'border-red-400' : ''} w-full outline-none`}
               {...register('password', { required: true, minLength: 6 })}
             />
             <button
@@ -135,12 +135,6 @@ export const RegisterForm = () => {
           >
             Have an account already?
           </Link>
-        </div>
-        <div className="w-full h-px bg-black mb-8"></div>
-        <div className="w-full flex items-center">
-          <button className="flex items-center justify-center col-span-2 md:col-span-3 w-full bg-black px-4 py-4 text-white text-sm md:text-base ">
-            Sign In with Google
-          </button>
         </div>
       </form>
       {errorMessage && (

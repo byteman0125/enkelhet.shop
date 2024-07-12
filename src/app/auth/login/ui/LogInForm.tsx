@@ -20,7 +20,7 @@ export const LogInForm = () => {
   return (
     <form
       action={dispatch}
-      className="max-w-[600px] w-full h-[800px] bg-white border border-black p-8 flex flex-col"
+      className="max-w-[600px] w-full h-[800px] bg-white p-8 flex flex-col justify-center"
     >
       <Link
         href="/"
@@ -36,7 +36,7 @@ export const LogInForm = () => {
           placeholder="Email"
           name="email"
           onChange={(e) => setEmail(e.target.value)}
-          className="border border-black p-3 outline-none"
+          className="p-3 outline-none"
         />
         <div className="w-full flex items-center relative">
           <input
@@ -45,7 +45,7 @@ export const LogInForm = () => {
             placeholder="Password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full  border border-black p-3 outline-none"
+            className="w-full  p-3 outline-none"
           />
           <button
             className="absolute right-3 mt-auto mb-auto top-0 bottom-0"
@@ -114,7 +114,6 @@ export const LogInForm = () => {
           Create new account
         </Link>
       </div>
-      <div className="w-full h-px bg-black mb-8"></div>
     </form>
   );
 };

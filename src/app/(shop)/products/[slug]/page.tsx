@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: Props) {
         SHOP / {product.series} / {product.title}
       </div>
       <div className="grid grid-cols-12 h-[calc(100vh-118px)] border-b-4 border-black md:border-none">
-        <div className="col-span-12 xl:col-span-7 border-r border-black gallery relative">
+        <div className="col-span-12 xl:col-span-7 md:border-r border-black gallery relative">
           <div className="w-full h-[calc(100vh-118px)] md:h-[calc(100vh-134px)] sticky  top-[118px] md:top-[134px]">
             <Image
               src={`${product.images[0]}`}
@@ -54,6 +54,7 @@ export default async function ProductPage({ params }: Props) {
             />
           </div>
           <div className="w-full h-[calc(100vh-118px)] md:h-[calc(100vh-134px)] sticky top-[118px] md:top-[134px] ">
+            <div className="w-full h-full bg-transparent absolute top-0 left-0 z-[999999999] md:hidden"></div>
             <ProductExperience
               model={
                 product?.ProductModel[0].url && product?.ProductModel[0].url
@@ -64,7 +65,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
         <div className="col-span-12 xl:col-span-5 h-full flex flex-col justify-between">
           <div className="h-[calc(100vh-134px)] w-full sticky  top-[118px] md:top-[134px] flex flex-col justify-between">
-            <div className="pt-4 flex flex-col justify-between h-full">
+            <div className="pt-4 flex flex-col justify-between h-full gap-5 md:gap-0">
               <div className="flex flex-col px-4">
                 <div className="flex w-full items-center justify-between">
                   <h1 className="font-bold">{product.title}</h1>

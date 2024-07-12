@@ -42,7 +42,7 @@ export const Pagination = ({ totalPages }: Props) => {
       {totalPages <= 1 ? (
         <></>
       ) : (
-        <div className="w-full flex items-center justify-center mb-24">
+        <div className="w-full flex items-center justify-center mb-20 pt-7">
           <nav className="border border-black flex items-center">
             <Link
               href={createPageUrl(currentPage - 1)}

@@ -16,7 +16,7 @@ export const ProductsInCart = ({ editable = true }: Props) => {
   const productsInCart = useCartStore((state) => state.cart);
 
   return (
-    <div className="w-full h-full border-r border-black">
+    <div className="w-full h-full md:border-r md:border-black">
       {loaded && productsInCart.length > 0 ? (
         productsInCart.map((product) => (
           <CartItem

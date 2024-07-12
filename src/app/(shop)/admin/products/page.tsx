@@ -112,9 +112,8 @@ export default async function AdminProductsPage({ searchParams }: Props) {
           </tbody>
         </table>
       </div>
-      <div className="absolute bottom-0 bg-white left-0 right-0 mx-auto">
-        <Pagination totalPages={totalPages} />
-      </div>
+
+      <Pagination totalPages={totalPages} />
     </>
   );
 }
