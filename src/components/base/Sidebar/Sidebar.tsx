@@ -14,8 +14,6 @@ export const Sidebar = () => {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === 'admin';
 
-  console.log(pathname);
-
   return (
     isSidemenuOpen && (
       <>
